@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GARAN - Stock Name | Kap Raporu</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Header Component -->
+    <kap-header></kap-header>
+
+    <div class="container">
+        <div class="stock-header">
+            <div class="stock-info">
+                <div class="stock-meta">
+                    <div class="stock-symbol">GARAN</div>
+                    <div class="stock-name">Türk Hava Yolları A.O.</div>
+                    <div class="stock-sector">Ulaştırma</div>
+                </div>
+                <div class="stock-description">
+                    Türkiye'nin bayrak taşıyıcı havayolu şirketi. KAP bildirimleri aşağıda listelenmiştir.
+                </div>
+            </div>
+            <div class="stock-price-container">
+                <div class="current-price">₺250,00</div>
+                <div class="price-change price-up">
+                    <span>+₺2,10</span>
+                    <span>(+0,85%)</span>
+                </div>
+                <div class="update-time">06.04.2025 - BIST kapanış (Tahmini)</div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="news-timeline">
+                <h2 class="section-title">Haber Akışı (GARAN)</h2>
+
+                <div class="timeline-container">
+                    <div class="timeline">
+                        <!-- News timeline will be loaded by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="stock-sidebar">
+                <div class="filter-panel">
+                    <h3 class="section-title">Haber Filtreleri</h3>
+                    <div class="filter-options">
+                        <div class="filter-option active">Tümü</div>
+                        <div class="filter-option">Finansal</div>
+                        <div class="filter-option">Yatırım</div>
+                        <div class="filter-option">Operasyonel</div>
+                        <div class="filter-option">Yönetim</div>
+                        <div class="filter-option">Diğer</div>
+                    </div>
+                </div>
+
+                <div class="news-detail">
+                    <!-- News detail will be loaded by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Component -->
+    <kap-footer></kap-footer>
+
+    <!-- Load components and data -->
+    <script src="../components/header.js"></script>
+    <script src="../components/footer.js"></script>
+    <script src="../data/stocks.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

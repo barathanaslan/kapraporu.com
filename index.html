@@ -4,28 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kap Raporu - Borsa İstanbul Şirket Haberleri</title>
-    <link rel="stylesheet" href="style.css">
-    </head>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-    <header>
-        <div class="container header-container">
-            <a href="/" class="logo">
-                <div class="logo-icon">K</div> Kap Raporu
-            </a>
-            <div class="search-container">
-                <div class="search-bar">
-                    <div class="search-icon">🔍</div>
-                    <input type="text" placeholder="Hisse kodu veya şirket adı ara..." disabled>
-                </div>
-            </div>
-            <div></div> </div>
-    </header>
-
-    <div class="update-info">
-        <div class="container">
-            Son güncelleme: 7 Nisan 2025, 01:30 | Veriler KAP'tan alınmaktadır.
-        </div>
-    </div>
+    <!-- Header Component -->
+    <kap-header></kap-header>
 
     <div class="container">
         <main class="main">
@@ -41,29 +24,18 @@
                              <span class="news-time">7 Nisan 2025 - 09:15</span>
                             <span class="news-source">KAP</span>
                         </div>
-                         <h3 class="news-title">Örnek Bildirim Başlığı Burada Yer Alacak</h3>
-                         <p class="news-desc">Bildirimin özeti veya ilgili önemli bilgiler burada gösterilecek. Otomatik sistemimiz yakında bu alanı dolduracak.</p>
+                         <h3 class="news-title">Yükleniyor...</h3>
+                         <p class="news-desc">İçerik yükleniyor, lütfen bekleyiniz.</p>
                         <div class="related-tickers">
-                             <a href="thyao.html" class="ticker-link"><div class="ticker">THYAO</div></a>
-                            <a href="#" class="ticker-link"><div class="ticker">AKBNK</div></a> </div>
-                    </div>
-                </div>
-
-                 <div class="news-card">
-                    <div class="news-content">
-                        <div class="news-meta">
-                            <span class="news-time">6 Nisan 2025 - 17:50</span>
-                            <span class="news-source">KAP</span>
+                             <a href="stocks/thyao.html" class="ticker-link"><div class="ticker">THYAO</div></a>
                         </div>
-                        <h3 class="news-title">Diğer Bir Örnek Bildirim</h3>
-                        <p class="news-desc">Bu kartlar, Python betiğiniz KAP verilerini işleyip bu HTML dosyasını güncellediğinde gerçek verilerle dolacaktır.</p>
-                        <div class="related-tickers">
-                             <a href="#" class="ticker-link"><div class="ticker">GARAN</div></a> <a href="#" class="ticker-link"><div class="ticker">ASELS</div></a> </div>
                     </div>
                 </div>
-                 </div>
+            </div>
 
-            <aside class="sidebar"> <div class="widget-card"> <h3 class="section-title">
+            <aside class="sidebar"> 
+                <div class="widget-card"> 
+                    <h3 class="section-title">
                         Piyasa Özeti
                         <span class="update-schedule">Veri Bekleniyor</span>
                     </h3>
@@ -80,40 +52,33 @@
                             <span class="market-name">Euro/TL</span>
                             <span class="market-value">Yükleniyor...</span>
                         </li>
-                        </ul>
+                    </ul>
                 </div>
 
                 <div class="widget-card">
                     <h3 class="section-title">
                         Popüler Hisseler
-                        <span class="update-schedule">Veri Bekleniyor</span>
+                        <span class="update-schedule">Günlük Güncellenir</span>
                     </h3>
                     <div class="stock-list-simple">
-                        <a href="thyao.html" class="stock-link">THYAO</a>
-                        <a href="#" class="stock-link">ASELS</a>
-                        <a href="#" class="stock-link">EREGL</a>
-                        <a href="#" class="stock-link">SISE</a>
-                        <a href="#" class="stock-link">GARAN</a>
+                        <a href="stocks/thyao.html" class="stock-link">THYAO</a>
+                        <a href="stocks/asels.html" class="stock-link">ASELS</a>
+                        <a href="stocks/eregl.html" class="stock-link">EREGL</a>
+                        <a href="stocks/sise.html" class="stock-link">SISE</a>
+                        <a href="stocks/garan.html" class="stock-link">GARAN</a>
                     </div>
-                 </div>
+                </div>
             </aside>
         </main>
     </div>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                 <a href="/" class="logo"> <div class="logo-icon">K</div>
-                    Kap Raporu
-                </a>
-                <div class="footer-info">
-                    Veriler günlük olarak güncellenmektedir.
-                </div>
-            </div>
-            <div class="disclaimer">
-                Yasal Uyarı: KapRaporu.com'da yer alan bilgiler Kamuoyu Aydınlatma Platformu'ndan (KAP) alınmaktadır ve yalnızca bilgilendirme amaçlıdır. Yatırım tavsiyesi değildir. Finansal kararlarınızdan önce profesyonel danışmanlık almanız önerilir. Verilerin doğruluğu ve güncelliği konusunda garanti verilmez.
-            </div>
-        </div>
-    </footer>
+    <!-- Footer Component -->
+    <kap-footer></kap-footer>
+
+    <!-- Load components and data -->
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="data/stocks.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
