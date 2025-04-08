@@ -1,5 +1,7 @@
 // js/main.js
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("Document loaded, initializing...");
+    
     // Load stock data for index page
     if (document.querySelector('.news-feed')) {
       loadLatestNews();
@@ -10,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const stockHeader = document.querySelector('.stock-header');
     if (stockHeader) {
       const symbol = document.querySelector('.stock-symbol').textContent;
+      console.log("Loading data for stock:", symbol);
       loadStockData(symbol);
     }
   });
@@ -19,9 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const newsContainer = document.querySelector('.news-feed');
     if (!newsContainer) return;
     
+    // Start with simulated data from stocksData
     let allNews = [];
     
-    // Collect news from all stocks
+    // Collect news from all stocks in stocksData
     for (const symbol in stocksData) {
       const stock = stocksData[symbol];
       
@@ -104,10 +108,15 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
   }
   
-  function loadStockData(symbol) {
+  async function loadStockData(symbol) {
+    console.log("Loading stock data for:", symbol);
+    
     // Load data for specific stock page
     const stock = stocksData[symbol];
-    if (!stock) return;
+    if (!stock) {
+      console.error("Stock not found in stocksData:", symbol);
+      return;
+    }
     
     // Update stock header information
     document.querySelector('.stock-name').textContent = stock.name;
@@ -121,47 +130,101 @@ document.addEventListener('DOMContentLoaded', function() {
     
     document.querySelector('.update-time').textContent = stock.lastUpdate;
     
-    // Load news timeline
-    loadNewsTimeline(stock);
-    
-    // Set active news in detail view
-    const activeNews = findActiveNews(stock);
-    if (activeNews) {
-      updateNewsDetail(activeNews);
+    // Try to load real news data from JSON file
+    try {
+      console.log("Attempting to load news data from JSON file");
+      const newsFile = `../data/${symbol.toLowerCase()}_news.json`;
+      console.log("Fetching:", newsFile);
+      
+      const response = await fetch(newsFile);
+      console.log("Fetch response status:", response.status);
+      
+      if (response.ok) {
+        const newsData = await response.json();
+        console.log("News data loaded successfully:", newsData.length, "days of news");
+        
+        loadNewsTimeline(symbol, newsData); // Pass real data
+        
+        // Set active news in detail view
+        const activeNews = findActiveNews(newsData);
+        if (activeNews) {
+          updateNewsDetail(activeNews, symbol);
+        } else {
+          console.warn("No active news found in data");
+        }
+      } else {
+        // Fall back to dummy data
+        console.warn(`News data for ${symbol} not found (status: ${response.status}), using dummy data.`);
+        loadNewsTimeline(symbol, stock.news);
+        
+        // Set active news in detail view
+        const activeNews = findActiveNews(stock.news);
+        if (activeNews) {
+          updateNewsDetail(activeNews, symbol);
+        }
+      }
+    } catch (error) {
+      console.error("Error loading news data:", error);
+      // Fall back to dummy data
+      loadNewsTimeline(symbol, stock.news);
+      
+      // Set active news in detail view
+      const activeNews = findActiveNews(stock.news);
+      if (activeNews) {
+        updateNewsDetail(activeNews, symbol);
+      }
     }
     
-    // Add click handlers to news items
-    document.querySelectorAll('.news-item').forEach(item => {
-      item.addEventListener('click', function() {
-        // Remove active class from all items
-        document.querySelectorAll('.news-item').forEach(i => i.classList.remove('active'));
-        
-        // Add active class to clicked item
-        this.classList.add('active');
-        
-        // Find the news data
-        const date = this.closest('.news-items').previousElementSibling.querySelector('.day-date').textContent;
-        const time = this.querySelector('.news-time').textContent;
-        const title = this.querySelector('.news-title-timeline').textContent;
-        
-        // Find matching news data
-        const newsData = findNewsItem(stock, date, time, title);
-        if (newsData) {
-          updateNewsDetail(newsData);
-        }
+    // Add click handlers to news items after timeline is loaded
+    setTimeout(() => {
+      document.querySelectorAll('.news-item').forEach(item => {
+        item.addEventListener('click', function() {
+          console.log("News item clicked");
+          
+          // Remove active class from all items
+          document.querySelectorAll('.news-item').forEach(i => i.classList.remove('active'));
+          
+          // Add active class to clicked item
+          this.classList.add('active');
+          
+          // Find the news data
+          const date = this.closest('.news-items').previousElementSibling.querySelector('.day-date').textContent;
+          const time = this.querySelector('.news-time').textContent;
+          const title = this.querySelector('.news-title-timeline').textContent;
+          
+          // Get the file name if available
+          const fileName = this.getAttribute('data-file');
+          
+          // Use custom news data to update the detail view
+          const customNewsData = {
+            dayDate: date.split(' - ')[0], // Remove "- Bugün" if present
+            time: time,
+            title: title,
+            content: this.getAttribute('data-content') || "<p>Detaylı bilgi mevcut değil.</p>",
+            file_name: fileName
+          };
+          
+          updateNewsDetail(customNewsData, symbol);
+        });
       });
-    });
+    }, 500);
   }
   
-  function loadNewsTimeline(stock) {
+  function loadNewsTimeline(symbol, newsData) {
+    console.log("Loading news timeline for", symbol);
     const timeline = document.querySelector('.timeline');
-    if (!timeline || !stock.news) return;
+    if (!timeline || !newsData) {
+      console.error("Timeline element not found or no news data:", timeline, newsData);
+      return;
+    }
     
     // Clear existing content
     timeline.innerHTML = '';
     
     // Add news by day
-    stock.news.forEach(day => {
+    newsData.forEach((day, index) => {
+      console.log(`Adding day to timeline: ${day.date}, items: ${day.items?.length || 0}`);
+      
       const dayMarker = document.createElement('div');
       dayMarker.className = 'day-marker';
       
@@ -184,6 +247,13 @@ document.addEventListener('DOMContentLoaded', function() {
         day.items.forEach(item => {
           const newsItem = document.createElement('div');
           newsItem.className = item.active ? 'news-item active' : 'news-item';
+          
+          // Store content and file name as data attributes for later use
+          newsItem.setAttribute('data-content', item.content || '');
+          if (item.file_name) {
+            newsItem.setAttribute('data-file', item.file_name);
+          }
+          
           newsItem.innerHTML = `
             <div class="news-time">${item.time}</div>
             <div class="news-title-timeline">${item.title}</div>
@@ -197,15 +267,39 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         const noNews = document.createElement('div');
         noNews.className = 'no-news-day';
-        noNews.textContent = `Bu tarihte ${stock.symbol} için KAP bildirimi bulunmuyor.`;
+        noNews.textContent = `Bu tarihte ${symbol} için KAP bildirimi bulunmuyor.`;
         timeline.appendChild(noNews);
       }
     });
+    
+    if (newsData.length === 0) {
+      console.warn("No news days found for", symbol);
+      timeline.innerHTML = `
+        <div class="no-news-day" style="margin: 20px; text-align: center;">
+          ${symbol} için KAP bildirimi bulunamadı.
+        </div>
+      `;
+    }
   }
   
-  function updateNewsDetail(newsData) {
+  function updateNewsDetail(newsData, symbol) {
+    console.log("Updating news detail with:", newsData);
     const newsDetail = document.querySelector('.news-detail');
-    if (!newsDetail) return;
+    if (!newsDetail) {
+      console.error("News detail element not found");
+      return;
+    }
+    
+    let fileLink = '';
+    if (newsData.file_name) {
+      fileLink = `
+        <div class="file-link">
+          <a href="../files/${symbol}/${newsData.file_name}" target="_blank" class="file-button">
+            KAP Bildirimini Görüntüle
+          </a>
+        </div>
+      `;
+    }
     
     newsDetail.innerHTML = `
       <div class="news-detail-header">
@@ -217,14 +311,20 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       <div class="news-detail-content">
         ${newsData.content}
+        ${fileLink}
       </div>
     `;
   }
   
-  function findActiveNews(stock) {
-    if (!stock.news) return null;
+  function findActiveNews(newsData) {
+    if (!newsData || newsData.length === 0) {
+      console.warn("No news data provided to findActiveNews");
+      return null;
+    }
     
-    for (const day of stock.news) {
+    for (const day of newsData) {
+      if (!day.items) continue;
+      
       for (const item of day.items) {
         if (item.active) {
           return {
@@ -236,33 +336,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // If no active news found, return the first news item
-    if (stock.news.length > 0 && stock.news[0].items.length > 0) {
+    if (newsData[0] && newsData[0].items && newsData[0].items.length > 0) {
       return {
-        dayDate: stock.news[0].date,
-        ...stock.news[0].items[0]
+        dayDate: newsData[0].date,
+        ...newsData[0].items[0]
       };
-    }
-    
-    return null;
-  }
-  
-  function findNewsItem(stock, date, time, title) {
-    if (!stock.news) return null;
-    
-    // Extract just the date part (remove "- Bugün" if present)
-    const datePart = date.split(' - ')[0];
-    
-    for (const day of stock.news) {
-      if (day.date === datePart) {
-        for (const item of day.items) {
-          if (item.time === time && item.title === title) {
-            return {
-              dayDate: day.date,
-              ...item
-            };
-          }
-        }
-      }
     }
     
     return null;
