@@ -1,0 +1,25 @@
+[
+  {
+    "date": "2 Nisan 2025",
+    "sortable_date": "2025-04-02",
+    "isToday": false,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "Izahname-Özet (SPK Tarafından Onaylanan)",
+        "category": "Financial",
+        "content": "<p>Türkiye Garanti Bankası A.Ş. has a new warrant investment plan, and the summary prospectus has been approved by the Capital Markets Board (SPK).</p><p>The announcement details the approval of the summary prospectus for 'Garanti Bankası Yatırım Kuruluşu Varantı' (Garanti Bank Investment Firm Warrant) by the Capital Markets Board. The summary prospectus is attached to the announcement. This indicates a new investment instrument being offered by Garanti Bankası.</p>",
+        "active": false,
+        "file_name": "02-04-2025_GARAN_1416298.pdf"
+      },
+      {
+        "time": "00:00",
+        "title": "İzahname-Sermaye Piyasası Aracı Notu (SPK Tarafından Onaylanan)",
+        "category": "Financial",
+        "content": "<p>Türkiye Garanti Bankası A.Ş. has a warrant investment plan, and the summary prospectus has been approved by the Capital Markets Board (SPK). The related document is attached.</p><p>The announcement confirms that the Capital Markets Board (SPK) has approved the \"Sermaye Piyasası Aracı Notu\" (Capital Markets Instrument Note) related to the \"Garanti Bankası Yatırım Kuruluşu Varantı\" (Garanti Bank Investment Institution Warrant). The approved document is included as an attachment to the announcement.</p>",
+        "active": true,
+        "file_name": "02-04-2025_GARAN_1416299.pdf"
+      }
+    ]
+  }
+]

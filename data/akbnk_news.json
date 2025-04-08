@@ -1,0 +1,32 @@
+[
+  {
+    "date": "3 Nisan 2025",
+    "sortable_date": "2025-04-03",
+    "isToday": false,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "Notification Regarding Transactions of Capital Market Instruments Excluding Shares (Including Interest)",
+        "category": "Financial",
+        "content": "<p>Akbank T.A.Ş. announced the completion of a bond issuance to international markets.</p><p>Akbank T.A.Ş. has completed a bond issuance to international markets. The bond is a private sector bond with a maturity date of April 10, 2026, and a maturity of 372 days. The sale was conducted abroad, specifically in England, and the central depository institution is Euroclear/Clearstream. The nominal amount of the sale is USD 25,000,000, with a fixed interest rate and a single coupon payment. The ISIN code for the bond is XS3041299135.</p>",
+        "active": true,
+        "file_name": "03-04-2025_AKBNK_1417090.pdf"
+      }
+    ]
+  },
+  {
+    "date": "2 Nisan 2025",
+    "sortable_date": "2025-04-02",
+    "isToday": false,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "General Company Information Form",
+        "category": "Financial",
+        "content": "<p>This document is a general company information form for Akbank T.A.Ş., providing details about the markets and exchanges where its capital market instruments are listed and traded.</p><p>The form lists the types of capital market instruments, including shares, pay deposit certificates, and bonds (both domestic and international), along with their listing dates and the corresponding exchanges or markets where they are traded. These include Borsa İstanbul, OTCQX in the United States, the Irish Stock Exchange, the Munich Stock Exchange, and the Vienna Stock Exchange. The document provides a snapshot of Akbank's presence in various financial markets.</p>",
+        "active": true,
+        "file_name": "02-04-2025_AKBNK_1416735.pdf"
+      }
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "date": "7 Nisan 2025",
+    "sortable_date": "2025-04-07",
+    "isToday": false,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "Kayıtlı Sermaye Tavanı İşlemlerine İlişkin Bildirim",
+        "category": "Regulatory",
+        "content": "<p>Türkiye Şişe ve Cam Fabrikaları A.Ş. (SISE) announced the registration of the amendment regarding the registered capital ceiling. The validity period of the registered capital ceiling has been extended to 2025-2029.</p><p>The company's application to extend the validity period of the registered capital ceiling to 2025-2029 and amend Article 7 of the Articles of Association regarding \"Capital\" has been approved by the Capital Markets Board on March 6, 2025. The application for the amendment of Article 7 of the Articles of Association regarding \"Capital\" has been approved by the Ministry of Trade. The new registered capital ceiling is 20,000,000,000 TL.</p>",
+        "active": true,
+        "file_name": "07-04-2025_SISE_1418980.pdf"
+      }
+    ]
+  },
+  {
+    "date": "4 Nisan 2025",
+    "sortable_date": "2025-04-04",
+    "isToday": false,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "Notification Regarding Transactions of Capital Market Instruments Excluding Shares (Including Interest)",
+        "category": "Financial",
+        "content": "<p>This announcement concerns the coupon payment for the bond with ISIN code TRSSISEE2517.</p><p>The announcement details the sixth coupon payment, made on April 4, 2025, for the bond with ISIN code TRSSISEE2517. It includes information such as the payment date, record date, payment amount (234,356,000 TRY), and the applicable interest rate (11.7178%). The announcement confirms that the payment has been executed. It also mentions that in case of a discrepancy between the English translation and the Turkish version, the Turkish version shall prevail.</p>",
+        "active": true,
+        "file_name": "04-04-2025_SISE_1417533.pdf"
+      }
+    ]
+  }
+]

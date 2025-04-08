@@ -919,3 +919,100 @@ footer {
         padding: 20px;
     }
 }
+
+/* ----- INVESTMENT PLANS STYLING ----- */
+.investment-plans {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .plans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .plan-card {
+    margin-bottom: 20px;
+  }
+  
+  .plan-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+  
+  .plan-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .plan-category {
+    background-color: var(--primary-light);
+    color: var(--white);
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  
+  .plan-date {
+    font-size: 14px;
+    color: var(--text-lighter);
+  }
+  
+  .plan-description {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  
+  .plan-details {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  
+  .plan-updates {
+    background-color: var(--bg);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 12px;
+  }
+  
+  .plan-updates h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+  
+  .plan-updates ul {
+    list-style: none;
+  }
+  
+  .plan-updates li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .plan-updates li:last-child {
+    border-bottom: none;
+  }
+  
+  .update-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  
+  .update-summary {
+    font-size: 14px;
+    color: var(--text);
+  }

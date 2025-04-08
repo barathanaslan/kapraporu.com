@@ -1,0 +1,32 @@
+[
+  {
+    "date": "8 Nisan 2025",
+    "sortable_date": "2025-04-08",
+    "isToday": true,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "HACI ÖMER SABANCI HOLDİNG A.Ş. Financial Calendar",
+        "category": "Financial",
+        "content": "<p>HACI ÖMER SABANCI HOLDİNG A.Ş. announced the planned date for the announcement of their financial results for the period ending March 31, 2025.</p><p>The company plans to announce the unaudited financial reports for the period ending March 31, 2025, on May 7, 2025, after the market close, via the Public Disclosure Platform (KAP). The announcement specifies the planned date for the release of the financial results.</p>",
+        "active": true,
+        "file_name": "08-04-2025_SAHOL_1419393.pdf"
+      }
+    ]
+  },
+  {
+    "date": "2 Nisan 2025",
+    "sortable_date": "2025-04-02",
+    "isToday": false,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "General Information Form of HACI ÖMER SABANCI HOLDİNG A.Ş.",
+        "category": "Other",
+        "content": "<p>The document is a general information form for HACI ÖMER SABANCI HOLDİNG A.Ş., providing details about the company's management team.</p><p>The form lists the names, positions, professions, and other roles of key personnel within HACI ÖMER SABANCI HOLDİNG A.Ş. It includes information about their responsibilities within the company, previous roles held within the last 5 years, and any positions they hold outside of the company, primarily within affiliated subsidiaries. The document provides an overview of the leadership structure and key personnel involved in the management of the holding company.</p>",
+        "active": true,
+        "file_name": "02-04-2025_SAHOL_1415983.pdf"
+      }
+    ]
+  }
+]

@@ -1,0 +1,25 @@
+[
+  {
+    "date": "3 Nisan 2025",
+    "sortable_date": "2025-04-03",
+    "isToday": false,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "Pay Dışında Sermaye Piyasası Aracı İşlemlerine İlişkin Bildirim (Faiz İçeren)",
+        "category": "Financial",
+        "content": "<p>Türkiye İş Bankası A.Ş. announces the coupon rate for a special sector bond.</p><p>The announcement details the coupon rate for a special sector bond (TRSTISB72514) issued to qualified investors. The 3rd coupon rate is set at 11.8381%, with the payment scheduled for April 4, 2025. The bond has a maturity of 371 days and a nominal value of 750,000,000 TL.</p>",
+        "active": false,
+        "file_name": "03-04-2025_ISCTR_1417157.pdf"
+      },
+      {
+        "time": "00:00",
+        "title": "Haber ve Söylentilere İlişkin Açıklama",
+        "category": "Regulatory",
+        "content": "<p>Türkiye İş Bankası A.Ş. has released a statement regarding news and rumors circulating on social media platforms. The announcement addresses concerns about misinformation and clarifies the company's position.</p><p>The statement references a previous announcement from March 28, 2025, and indicates that legal proceedings have been initiated to prevent the spread of false or misleading information. A criminal complaint has been filed with the Istanbul Chief Public Prosecutor's Office. The company affirms that the disclosures align with the principles of the Capital Markets Board's regulations on special circumstances and accurately reflect the information available to them.</p>",
+        "active": true,
+        "file_name": "03-04-2025_ISCTR_1417245.pdf"
+      }
+    ]
+  }
+]

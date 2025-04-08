@@ -1,0 +1,32 @@
+[
+  {
+    "date": "7 Nisan 2025",
+    "sortable_date": "2025-04-07",
+    "isToday": false,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "ANADOLU EFES BİRACILIK VE MALT SANAYİİ A.Ş. - Notification Regarding Transactions on Debt Instruments Excluding Equity (Including Interest)",
+        "category": "Financial",
+        "content": "<p>Anadolu Efes Biracilik ve Malt Sanayii A.Ş. announced the sixth coupon payment for its bond with ISIN code TRSEFESE2516.</p><p>The announcement details the sixth coupon payment related to the bond with ISIN code TRSEFESE2516, which was issued on 10.10.2023 with a maturity of 736 days, a fixed interest rate of 47.00% paid quarterly, and a maturity date of 15.10.2025. The coupon payment was made today, April 7, 2025.</p>",
+        "active": true,
+        "file_name": "07-04-2025_AEFES_1418326.pdf"
+      }
+    ]
+  },
+  {
+    "date": "2 Nisan 2025",
+    "sortable_date": "2025-04-02",
+    "isToday": false,
+    "items": [
+      {
+        "time": "00:00",
+        "title": "Anadolu Efes Biracilik ve Malt Sanayii A.Ş. - General Company Information Form",
+        "category": "Operational",
+        "content": "<p>This document is a general company information form for Anadolu Efes Biracilik ve Malt Sanayii A.Ş., providing details about the management team.</p><p>The document lists the names, positions, professions, and recent roles of key personnel within Anadolu Efes. It includes information about individuals in various leadership positions, such as the Bira Grubu Başkanı, Grup Mali İşler Direktörü, and Genel Müdürs for different regions. The document provides an overview of the company's organizational structure and key decision-makers.</p>",
+        "active": true,
+        "file_name": "02-04-2025_AEFES_1416468.pdf"
+      }
+    ]
+  }
+]

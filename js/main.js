@@ -45,8 +45,14 @@ function loadLatestNews() {
     }
   }
   
-  // Sort by date (newest first) - very basic implementation
+  // Sort by date (newest first) using sortable_date if available
   allNews.sort((a, b) => {
+    // First try using the sortable_date field
+    if (a.sortable_date && b.sortable_date) {
+      return b.sortable_date.localeCompare(a.sortable_date);
+    }
+    
+    // Fall back to parsing the display date
     const dateA = new Date(a.date.split(' ')[2], getMonthNumber(a.date.split(' ')[1]), a.date.split(' ')[0]);
     const dateB = new Date(b.date.split(' ')[2], getMonthNumber(b.date.split(' ')[1]), b.date.split(' ')[0]);
     return dateB - dateA;
@@ -135,6 +141,9 @@ async function loadStockData(symbol) {
   
   document.querySelector('.update-time').textContent = stock.lastUpdate;
   
+  // Load investment plans if present
+  loadInvestmentPlans(symbol);
+  
   // Try to load real news data from JSON file
   try {
     console.log("Attempting to load news data from JSON file");
@@ -216,6 +225,92 @@ async function loadStockData(symbol) {
       });
     });
   }, 500);
+}
+
+function loadInvestmentPlans(symbol) {
+  console.log("Loading investment plans for:", symbol);
+  
+  // Look for investment plans container
+  const plansContainer = document.querySelector('.investment-plans');
+  if (!plansContainer) {
+    console.warn("Investment plans container not found");
+    return;
+  }
+  
+  // Add loading indicator
+  plansContainer.innerHTML = `<div id="plans-loading">Yatırım planları yükleniyor...</div>`;
+  
+  // Attempt to load investment plans from JSON file
+  const plansFile = `../data/${symbol.toLowerCase()}_investment_plans.json`;
+  
+  fetch(plansFile)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`No investment plans found (${response.status})`);
+      }
+      return response.json();
+    })
+    .then(plans => {
+      console.log(`Loaded ${plans.length} investment plans for ${symbol}`);
+      
+      if (plans && plans.length > 0) {
+        // Clear loading indicator
+        plansContainer.innerHTML = `
+          <h2 class="section-title">
+            Yatırım Planları
+            <span class="update-schedule">Son Güncellemeler</span>
+          </h2>
+          <div class="plans-list"></div>
+        `;
+        
+        const plansList = plansContainer.querySelector('.plans-list');
+        
+        // Add each plan to the list
+        plans.forEach(plan => {
+          const planCard = document.createElement('div');
+          planCard.className = 'plan-card widget-card';
+          
+          // Generate updates HTML if there are updates
+          let updatesHTML = '';
+          if (plan.updates && plan.updates.length > 0) {
+            updatesHTML = `
+              <div class="plan-updates">
+                <h4>Güncellemeler</h4>
+                <ul>
+                  ${plan.updates.map(update => `
+                    <li>
+                      <div class="update-date">${update.date}</div>
+                      <div class="update-summary">${update.summary}</div>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            `;
+          }
+          
+          // Generate the full plan card
+          planCard.innerHTML = `
+            <h3 class="plan-title">${plan.title}</h3>
+            <div class="plan-meta">
+              <span class="plan-category">${plan.category || 'Genel'}</span>
+              <span class="plan-date">Açıklanma: ${plan.date_announced}</span>
+            </div>
+            <div class="plan-description">${plan.description}</div>
+            <div class="plan-details">${plan.details}</div>
+            ${updatesHTML}
+          `;
+          
+          plansList.appendChild(planCard);
+        });
+      } else {
+        // No plans found
+        plansContainer.innerHTML = '';
+      }
+    })
+    .catch(error => {
+      console.warn(`No investment plans found for ${symbol}:`, error);
+      plansContainer.innerHTML = '';
+    });
 }
 
 function displayNoNewsMessage(symbol) {
