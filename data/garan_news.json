@@ -1,0 +1,30 @@
+[
+  {
+    "date": "02 Nisan 2025",
+    "isToday": false,
+    "items": [
+      {
+        "date": "02 Nisan 2025",
+        "raw_date": "2025-04-02",
+        "time": "09:00",
+        "title": "KAP Bildirimi - 02 Nisan 2025",
+        "category": "Bildirim",
+        "content": "<p>Bu bildirim KAP'tan alınmıştır. Detaylar için PDF dosyasını inceleyebilirsiniz.</p>",
+        "pdf_filename": "02-04-2025_GARAN_1416299_pdf",
+        "disclosure_id": "1416299",
+        "active": true
+      },
+      {
+        "date": "02 Nisan 2025",
+        "raw_date": "2025-04-02",
+        "time": "09:00",
+        "title": "KAP Bildirimi - 02 Nisan 2025",
+        "category": "Bildirim",
+        "content": "<p>Bu bildirim KAP'tan alınmıştır. Detaylar için PDF dosyasını inceleyebilirsiniz.</p>",
+        "pdf_filename": "02-04-2025_GARAN_1416298_pdf",
+        "disclosure_id": "1416298",
+        "active": false
+      }
+    ]
+  }
+]
