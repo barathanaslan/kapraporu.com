@@ -1,4 +1,4 @@
-// components/header.js
+// components/header.js - Update this file with the search functionality
 class KapHeader extends HTMLElement {
   constructor() {
     super();
@@ -14,7 +14,7 @@ class KapHeader extends HTMLElement {
           <div class="search-container">
             <div class="search-bar">
               <div class="search-icon">🔍</div>
-              <input type="text" placeholder="Hisse kodu veya şirket adı ara...">
+              <input type="text" placeholder="Hisse kodu ara...">
             </div>
           </div>
           <div></div>
@@ -27,6 +27,21 @@ class KapHeader extends HTMLElement {
         </div>
       </div>
     `;
+    
+    // Initialize simple ticker filtering
+    const searchInput = this.querySelector('.search-bar input');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        const term = this.value.toUpperCase().trim();
+        
+        // Only filter stock links (ticker names)
+        const stockLinks = document.querySelectorAll('.stock-link');
+        stockLinks.forEach(link => {
+          const ticker = link.textContent.toUpperCase();
+          link.style.display = ticker.includes(term) ? '' : 'none';
+        });
+      });
+    }
   }
 }
 
