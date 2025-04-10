@@ -14,8 +14,7 @@ class KapHeader extends HTMLElement {
           <div class="search-container">
             <div class="search-bar">
               <div class="search-icon">🔍</div>
-              <input type="text" placeholder="Arama fonksiyonu yakında hizmetinizde..." disabled>
-              <span style="position: absolute; right: 10px; font-size: 12px; color: var(--text-lighter);">Yakında</span>
+              <input type="text" placeholder="Hisse kodu veya şirket adı ara...">
             </div>
           </div>
           <div></div>

@@ -496,3 +496,43 @@ function getMonthNumber(monthName) {
 
   return months[cleanedMonth]; // Returns undefined if not found
 }
+
+// Add this to your main.js file (at the end)
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('.search-bar input');
+    
+    if (searchInput) {
+        // Add event listener for search functionality
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            
+            // If on index page, filter stock list
+            const stockLinks = document.querySelectorAll('.stock-link');
+            if (stockLinks.length > 0) {
+                stockLinks.forEach(link => {
+                    const stockText = link.textContent.toLowerCase();
+                    if (searchTerm === '' || stockText.includes(searchTerm)) {
+                        link.style.display = '';
+                    } else {
+                        link.style.display = 'none';
+                    }
+                });
+            }
+            
+            // If on index page, filter news cards
+            const newsCards = document.querySelectorAll('.news-card');
+            if (newsCards.length > 0) {
+                newsCards.forEach(card => {
+                    const title = card.querySelector('.news-title').textContent.toLowerCase();
+                    const ticker = card.querySelector('.ticker')?.textContent.toLowerCase() || '';
+                    
+                    if (searchTerm === '' || title.includes(searchTerm) || ticker.includes(searchTerm)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        });
+    }
+});
