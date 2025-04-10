@@ -12,51 +12,99 @@
 
     <div class="container">
         <div class="stock-header">
-            <div class="stock-info">
-                <div class="stock-meta">
-                    <div class="stock-symbol">GARAN</div>
-                    <div class="stock-name">Türkiye Garanti Bankası A.Ş.</div>
-                    <div class="stock-sector">Bankacılık</div>
+            <div class="stock-info-container">
+                <div class="stock-info">
+                    <div class="stock-meta">
+                        <div class="stock-symbol">GARAN</div>
+                        <div class="stock-name">Türkiye Garanti Bankası A.Ş.</div>
+                        <div class="stock-sector">Bankacılık</div>
+                    </div>
+                    <div class="stock-description">Türkiye'nin önde gelen bankalarından biri.</div>
                 </div>
-                <div class="stock-description">Türkiye'nin önde gelen bankalarından biri.</div>
-            </div>
-            <div class="stock-price-container">
-                <div class="current-price">₺52,80</div>
-                <div class="price-change price-down"><span>-₺0,70</span> <span>(-1,30%)</span></div>
-                <div class="update-time">06.04.2025 - BIST kapanış (Tahmini)</div>
+                <div class="stock-price-container">
+                    <div class="current-price">₺52,80</div>
+                    <div class="price-change price-down"><span>-₺0,70</span> <span>(-1,30%)</span></div>
+                    <div class="update-time">06.04.2025 - BIST kapanış (Tahmini)</div>
+                </div>
+                
+                <!-- Moved filter buttons here -->
+                <div class="filter-tabs">
+                    <div class="filter-tab active" data-category="all">Tümü</div>
+                    <div class="filter-tab" data-category="financial">Finansal</div>
+                    <div class="filter-tab" data-category="investment">Yatırım</div>
+                    <div class="filter-tab" data-category="operational">Operasyonel</div>
+                    <div class="filter-tab" data-category="management">Yönetim</div>
+                    <div class="filter-tab" data-category="other">Diğer</div>
+                </div>
             </div>
         </div>
 
-        <div class="main-content">
+        <div class="content-area">
             <div class="news-timeline">
                 <h2 class="section-title">Haber Akışı (GARAN)</h2>
 
                 <div class="timeline-container">
                     <div class="timeline">
-                        <!-- News timeline will be loaded by JavaScript -->
+                        <!-- Sample timeline content -->
+                        <div class="day-marker">
+                            <div class="day-dot past-dot"></div>
+                            <div class="day-date">7 Nisan 2025</div>
+                        </div>
+                        <div class="news-items">
+                            <div class="news-item" data-kap-url="https://www.kap.org.tr/">
+                                <div class="news-time">09:15</div>
+                                <div class="news-title-timeline">Share Buyback Program Announcement</div>
+                                <div class="news-category">Finansal</div>
+                                <div class="news-content-expandable" style="display: none;">
+                                    <p>Turkish Airlines (THYAO) is initiating a new share buyback program, subject to shareholder approval at the upcoming general assembly. The program aims to support the stock's value, protect shareholders, and contribute to price stability.</p>
+                                    <p>The Board of Directors has decided to propose a share buyback program to the shareholders at the next general assembly. The program will be valid for 3 years from the date of the general assembly approval. The maximum amount allocated for the buyback is 9,000,000,000 TL, sourced from the company's cash portfolio. The maximum number of shares to be bought back is limited to 1.7% of the company's issued capital.</p>
+                                    <div class="file-link">
+                                        <a href="https://www.kap.org.tr/" target="_blank" class="file-button">KAP Bildirimine Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="news-item" data-kap-url="https://www.kap.org.tr/">
+                                <div class="news-time">14:30</div>
+                                <div class="news-title-timeline">General Assembly Information Regarding Procedures</div>
+                                <div class="news-category">Yatırım</div>
+                                <div class="news-content-expandable" style="display: none;">
+                                    <p>Turkish Airlines (THYAO) is seeking shareholder approval for a new share buyback program at the upcoming General Assembly on May 21, 2025. The proposed program aims to support the stock's value and protect shareholders.</p>
+                                    <p>The General Assembly will convene on May 21, 2025, to discuss and vote on the proposed share buyback program. The agenda includes the approval of the new share buyback program prepared by the Board of Directors. Shareholders will also receive information about previous share buybacks conducted under the framework of Capital Markets Board regulations. The announcement includes attachments with the agenda, information document, and the share buyback program details.</p>
+                                    <div class="file-link">
+                                        <a href="https://www.kap.org.tr/" target="_blank" class="file-button">KAP Bildirimine Git</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="investment-plans">
-                <!-- Investment plans will be loaded here -->
-            </div>
-
-            <div class="stock-sidebar">
-                <div class="filter-panel">
-                    <h3 class="section-title">Haber Filtreleri</h3>
-                    <div class="filter-options">
-                        <div class="filter-option active">Tümü</div>
-                        <div class="filter-option">Finansal</div>
-                        <div class="filter-option">Yatırım</div>
-                        <div class="filter-option">Operasyonel</div>
-                        <div class="filter-option">Yönetim</div>
-                        <div class="filter-option">Diğer</div>
+                <h2 class="section-title">Yatırım Planları</h2>
+                <div class="plans-list">
+                    <div class="plan-card widget-card">
+                        <h3 class="plan-title">Share Buyback Program Announcement</h3>
+                        <div class="plan-meta">
+                            <span class="plan-category">Finansal</span>
+                            <span class="plan-date">Açıklanma: 07.04.2025</span>
+                            <a href="https://www.kap.org.tr/" target="_blank" style="font-size: 0.85em;">Ana Bildirim (KAP)</a>
+                        </div>
+                        <div class="plan-description">Turkish Airlines (THYAO) is initiating a new share buyback program, subject to shareholder approval at the upcoming general assembly. The program aims to support the stock's value, protect shareholders, and contribute to price stability.</div>
+                        <div class="plan-details">The Board of Directors has decided to propose a share buyback program to the shareholders at the next general assembly. The program will be valid for 3 years from the date of the general assembly approval. The maximum amount allocated for the buyback is 9,000,000,000 TL, sourced from the company's cash portfolio. The maximum number of shares to be bought back is limited to 1.7% of the company's issued capital.</div>
+                        <div class="plan-financial-impact" style="font-size: 0.9em; margin-top:10px; font-style: italic;"><strong>Finansal Etki:</strong> The company aims to use its cash portfolio to fund the buyback, with a maximum allocation of 9,000,000,000 TL.</div>
+                        <div class="plan-updates">
+                            <h4>Güncellemeler</h4>
+                            <ul>
+                                <li>
+                                    <div class="update-date">07.04.2025</div>
+                                    <div class="update-summary">Turkish Airlines (THYAO) is seeking shareholder approval for a new share buyback program at the upcoming General Assembly on May 21, 2025. The proposed program aims to support the stock's value and protect shareholders.</div>
+                                    <div class="update-details" style="font-size: 0.9em; color: var(--text-light);">The General Assembly will convene on May 21, 2025, to discuss and vote on the proposed share buyback program. The agenda includes the approval of the new share buyback program prepared by the Board of Directors.</div>
+                                    <a href="https://www.kap.org.tr/" target="_blank" style="font-size: 0.85em; margin-top: 5px; display: inline-block;">Detay (KAP)</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-
-                <div class="news-detail">
-                    <!-- News detail will be loaded by JavaScript -->
                 </div>
             </div>
         </div>
@@ -68,6 +116,73 @@
     <!-- Load components and data -->
     <script src="../components/header.js"></script>
     <script src="../components/footer.js"></script>
-    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter tab functionality
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const newsTimeline = document.querySelector('.news-timeline');
+            const investmentPlans = document.querySelector('.investment-plans');
+            
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active state
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const category = this.getAttribute('data-category');
+                    
+                    // Handle Yatırım category specially
+                    if (category === 'investment') {
+                        investmentPlans.classList.add('visible');
+                        newsTimeline.classList.add('compressed');
+                    } else {
+                        investmentPlans.classList.remove('visible');
+                        newsTimeline.classList.remove('compressed');
+                    }
+                    
+                    // Sample category filtering (would be enhanced in production)
+                    const newsItems = document.querySelectorAll('.news-item');
+                    newsItems.forEach(item => {
+                        const itemCategory = item.querySelector('.news-category').textContent;
+                        if (category === 'all' || 
+                            (category === 'financial' && itemCategory === 'Finansal') ||
+                            (category === 'investment' && itemCategory === 'Yatırım') ||
+                            (category === 'operational' && itemCategory === 'Operasyonel') ||
+                            (category === 'management' && itemCategory === 'Yönetim') ||
+                            (category === 'other' && itemCategory === 'Diğer')) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Expandable news items
+            const newsItems = document.querySelectorAll('.news-item');
+            newsItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    // Don't toggle if clicking on a link
+                    if (e.target.tagName === 'A') return;
+                    
+                    // Collapse all other items
+                    newsItems.forEach(ni => {
+                        if (ni !== this) {
+                            ni.classList.remove('expanded');
+                            const content = ni.querySelector('.news-content-expandable');
+                            if (content) content.style.display = 'none';
+                        }
+                    });
+                    
+                    // Toggle current item
+                    this.classList.toggle('expanded');
+                    const content = this.querySelector('.news-content-expandable');
+                    if (content) {
+                        content.style.display = this.classList.contains('expanded') ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

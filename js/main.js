@@ -387,7 +387,7 @@ function loadLatestNews() {
         return (b.time || '00:00').localeCompare(a.time || '00:00');
     });
     
-    newsContainer.innerHTML = `<h2 class="section-title">Today's KAP News<span class="update-schedule">Günlük Güncellenir</span></h2>`;
+    newsContainer.innerHTML = `<h2 class="section-title">Bugünün KAP Haberleri<span class="update-schedule">Günlük Güncellenir</span></h2>`;
     if (allNews.length > 0) {
         allNews.forEach(news => {
             const newsCard = document.createElement('div'); 
@@ -487,3 +487,271 @@ function getMonthNumber(monthName) {
  * REMOVED: Original search functionality that was conflicting with header.js
  * Search is now handled by the dropdown in header.js
  */
+
+// --- Load latest news with proper Turkish heading ---
+function loadLatestNews() {
+    const newsContainer = document.querySelector('.news-feed');
+    if (!newsContainer || typeof stocksData === 'undefined') return;
+    let allNews = [];
+    
+    // Set today's date for filtering
+    const todayDate = "8 Nisan 2025"; // For development purposes
+    
+    for (const symbol in stocksData) {
+        const stock = stocksData[symbol];
+        if (stock.news && Array.isArray(stock.news)) {
+            stock.news.forEach(dayNews => {
+                // Only include news from today
+                if (dayNews.date === todayDate) {
+                    if (dayNews.items && Array.isArray(dayNews.items)) {
+                        dayNews.items.forEach(item => {
+                            if (item.title && item.content) {
+                                allNews.push({
+                                    sortable_date: dayNews.sortable_date || null, 
+                                    date: dayNews.date || "Tarih Yok", 
+                                    time: item.time || "Saat Yok", 
+                                    title: item.title,
+                                    desc: (typeof item.content === 'string' ? item.content.replace(/<\/?p>/g, '').substring(0, 150) : 'İçerik yok') + '...',
+                                    symbol: stock.symbol
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+    
+    // Sort news by time
+    allNews.sort((a, b) => {
+        return (b.time || '00:00').localeCompare(a.time || '00:00');
+    });
+    
+    newsContainer.innerHTML = `<h2 class="section-title">Günün KAP Haberleri<span class="update-schedule">Günlük Güncellenir</span></h2>`;
+    if (allNews.length > 0) {
+        allNews.forEach(news => {
+            const newsCard = document.createElement('div'); 
+            newsCard.className = 'news-card';
+            newsCard.innerHTML = `<div class="news-content"><div class="news-meta"><span class="news-time">${news.date || ''} - ${news.time || ''}</span><span class="news-source">KAP</span></div><h3 class="news-title">${news.title || 'Başlık Yok'}</h3><p class="news-desc">${news.desc || ''}</p><div class="related-tickers"><a href="stocks/${news.symbol.toLowerCase()}.html" class="ticker-link"><div class="ticker">${news.symbol}</div></a></div></div>`;
+            newsContainer.appendChild(newsCard);
+        });
+    } else { 
+        newsContainer.innerHTML += `<p style="text-align: center; padding: 20px;">Bugün için KAP bildirimi bulunamadı.</p>`; 
+    }
+}
+
+// --- Modified loadNewsTimeline function to support expandable news items ---
+function loadNewsTimeline(symbol, newsData) {
+    console.log("Rendering news timeline for", symbol);
+    const timeline = document.querySelector('.timeline');
+    if (!timeline) { console.error("Timeline element not found!"); return; }
+    if (!Array.isArray(newsData)) { console.error("Invalid news data format.", newsData); timeline.innerHTML = `<div class="no-news-day" style="text-align: center; padding: 20px; color: var(--red);">Haber verisi hatalı formatta.</div>`; return; }
+    if (newsData.length === 0) { console.warn("No news days for", symbol); timeline.innerHTML = `<div class="no-news-day" style="text-align: center; padding: 20px;">${symbol} için kayıtlı KAP bildirimi bulunamadı.</div>`; return; }
+
+    timeline.innerHTML = ''; // Clear loading/previous
+    newsData.forEach((day) => {
+        if (!day || typeof day.date !== 'string' || !Array.isArray(day.items)) { console.warn("Skipping invalid day structure:", day); return; }
+
+        const dayMarker = document.createElement('div');
+        dayMarker.className = 'day-marker';
+        const dotClass = day.isToday ? 'day-dot today-dot' : 'day-dot past-dot';
+        const dateClass = day.isToday ? 'day-date today-date' : 'day-date';
+        const dateText = day.isToday ? `${day.date} - Bugün` : day.date;
+        dayMarker.innerHTML = `<div class="${dotClass}"></div><div class="${dateClass}">${dateText}</div>`;
+        timeline.appendChild(dayMarker);
+
+        if (day.items.length > 0) {
+            const newsItemsContainer = document.createElement('div');
+            newsItemsContainer.className = 'news-items';
+            day.items.forEach(item => {
+                if (!item || typeof item.title !== 'string') { console.warn("Skipping invalid item structure:", item); return; }
+
+                const newsItem = document.createElement('div');
+                newsItem.className = item.active ? 'news-item active' : 'news-item'; // Check if item is marked active
+                newsItem.setAttribute('data-content', item.content || '');
+
+                // Store kap_url in data attribute
+                if (item.kap_url && typeof item.kap_url === 'string' && item.kap_url.trim() !== '') {
+                    newsItem.setAttribute('data-kap-url', item.kap_url);
+                } else {
+                     newsItem.removeAttribute('data-kap-url'); // Ensure it's not present if missing in data
+                }
+
+                // Keep file_name attribute if you still need it for any reason
+                if (item.file_name) { newsItem.setAttribute('data-file', item.file_name); }
+                 else { newsItem.removeAttribute('data-file');}
+
+                newsItem.innerHTML = `
+                    <div class="news-time">${item.time || 'N/A'}</div>
+                    <div class="news-title-timeline">${item.title}</div>
+                    <div class="news-category">${item.category || 'Genel'}</div>
+                    <div class="news-content-expandable" style="display: none; margin-top: 15px;">
+                        ${item.content || ''}
+                        ${item.kap_url ? `<div class="file-link"><a href="${item.kap_url}" target="_blank" class="file-button">KAP Bildirimine Git</a></div>` : ''}
+                    </div>`;
+                newsItemsContainer.appendChild(newsItem);
+            });
+            timeline.appendChild(newsItemsContainer);
+        } else {
+             // If a day has no items (unlikely but possible)
+             const noNews = document.createElement('div');
+             noNews.className = 'no-news-day';
+             noNews.textContent = `Bu tarihte bildirim bulunmuyor.`; // Generic message for empty day
+             timeline.appendChild(noNews);
+        }
+    });
+    
+    // Set up the expandable news items
+    setupNewsItemExpansion();
+}
+
+// --- New function to handle news item expansion ---
+function setupNewsItemExpansion() {
+    const newsItems = document.querySelectorAll('.news-item');
+    
+    newsItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // Don't toggle if clicking on a link
+            if (e.target.tagName === 'A') return;
+            
+            // Collapse all other items
+            newsItems.forEach(ni => {
+                if (ni !== this) {
+                    ni.classList.remove('expanded');
+                    const content = ni.querySelector('.news-content-expandable');
+                    if (content) content.style.display = 'none';
+                }
+            });
+            
+            // Toggle current item
+            this.classList.toggle('expanded');
+            const content = this.querySelector('.news-content-expandable');
+            if (content) {
+                content.style.display = this.classList.contains('expanded') ? 'block' : 'none';
+            }
+        });
+    });
+}
+
+// --- Modified loadStockPageData to handle filter tabs ---
+function loadStockPageData(symbol) {
+    console.log("Loading dynamic data for stock page:", symbol);
+
+    // Clear placeholders or add loading indicators if needed
+    const timelineContainer = document.querySelector('.timeline');
+    const investmentPlansContainer = document.querySelector('.investment-plans');
+
+    if (timelineContainer) timelineContainer.innerHTML = '<div id="loading-indicator" style="padding: 20px; text-align: center;">Bildirimler yükleniyor...</div>';
+    if (investmentPlansContainer) investmentPlansContainer.innerHTML = '<div id="plans-loading" style="padding: 15px; text-align: center; color: var(--text-lighter);">Yatırım planları yükleniyor...</div>';
+
+    // Load investment plans
+    loadInvestmentPlans(symbol);
+
+    // Set up filter tab functionality
+    setupFilterTabs(symbol);
+
+    // Try to load real news data from JSON file
+    try {
+        console.log("Attempting to load news data from JSON file");
+        const newsFile = `../data/${symbol.toLowerCase()}_news.json`;
+        fetch(newsFile)
+            .then(response => {
+                console.log("Fetch response status:", response.status);
+                if (!response.ok) {
+                    throw new Error(`Failed to load news data: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(newsData => {
+                console.log(`News data for ${symbol} loaded successfully: ${newsData.length} days`);
+                
+                if (timelineContainer) {
+                    if (newsData && newsData.length > 0) {
+                        loadNewsTimeline(symbol, newsData);
+                        addNewsItemClickHandlers(symbol);
+                    } else {
+                        console.warn("News data array is empty for", symbol);
+                        displayNoNewsMessage(symbol);
+                    }
+                } else {
+                    console.error("Timeline container element not found!");
+                }
+            })
+            .catch(error => {
+                console.error(`Error loading or parsing news data for ${symbol}:`, error);
+                displayNoNewsMessage(symbol);
+            });
+    } catch (error) {
+        console.error(`Error in fetch operation for ${symbol}:`, error);
+        displayNoNewsMessage(symbol);
+    }
+}
+
+// --- New function to handle filter tabs ---
+function setupFilterTabs(symbol) {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const newsTimeline = document.querySelector('.news-timeline');
+    const investmentPlans = document.querySelector('.investment-plans');
+    
+    if (!filterTabs.length) {
+        console.warn("No filter tabs found to set up");
+        return;
+    }
+    
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Update active state
+            filterTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const category = this.getAttribute('data-category');
+            
+            // Handle Yatırım category specially
+            if (category === 'investment') {
+                investmentPlans.classList.add('visible');
+                newsTimeline.classList.add('compressed');
+            } else {
+                investmentPlans.classList.remove('visible');
+                newsTimeline.classList.remove('compressed');
+            }
+            
+            // Also filter the news items by category
+            filterNewsByCategory(category);
+        });
+    });
+}
+
+// --- New function to filter news by category ---
+function filterNewsByCategory(category) {
+    const newsItems = document.querySelectorAll('.timeline .news-item');
+    
+    if (category === 'all') {
+        // Show all news items
+        newsItems.forEach(item => {
+            item.style.display = '';
+        });
+        return;
+    }
+    
+    // Category mapping from data-category to actual category values in the data
+    const categoryMap = {
+        'financial': 'Finansal',
+        'investment': 'Yatırım',
+        'operational': 'Operasyonel',
+        'management': 'Yönetim',
+        'other': 'Diğer'
+    };
+    
+    const targetCategory = categoryMap[category];
+    
+    // Filter news items by category
+    newsItems.forEach(item => {
+        const itemCategory = item.querySelector('.news-category')?.textContent;
+        
+        if (itemCategory === targetCategory) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}

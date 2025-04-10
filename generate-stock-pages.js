@@ -33,8 +33,8 @@ if (!fs.existsSync(stocksDir)) {
 }
 
 // Read the stock template
-// IMPORTANT: Remove the <script src="../data/stocks.js"></script> line from thyao.html first!
-const templatePath = path.join(__dirname, 'stocks', 'thyao.html'); // Use THYAO as the base template
+// We're using the updated thyao.html with the new layout as our template
+const templatePath = path.join(__dirname, 'stocks', 'thyao.html');
 if (!fs.existsSync(templatePath)) {
     console.error(`Template file not found: ${templatePath}`);
     process.exit(1);
@@ -42,7 +42,7 @@ if (!fs.existsSync(templatePath)) {
 
 let template = fs.readFileSync(templatePath, 'utf8');
 
-// --- IMPORTANT: Remove the script tag loading stocks.js from the template ---
+// --- IMPORTANT: Remove the script tag loading stocks.js from the template if it exists ---
 template = template.replace(/<script src="..\/data\/stocks.js"><\/script>\s*/g, '');
 // ---
 
@@ -90,15 +90,14 @@ symbols.forEach(symbol => {
     // Replace News Header Symbol
     content = content.replace(/Haber Akışı \(.*?\)/, `Haber Akışı (${symbol})`);
 
-    // Ensure investment plans div exists (it should be in the modified template now)
+    // Ensure content-area has investment-plans div (for the new layout)
     if (!content.includes('<div class="investment-plans">')) {
-         // Add investment plans section correctly relative to news-timeline and stock-sidebar
-         content = content.replace(
-            /(<div class="news-timeline">.*?<\/div>\s*<\/div>\s*)(<div class="stock-sidebar">)/s, // Find end of news-timeline container and start of sidebar
-            '$1\n<div class="investment-plans">\n\n</div>\n\n$2' // Inject between them
-         );
+        // Add investment plans section properly in the new layout
+        content = content.replace(
+            /(<div class="content-area">.*?<div class="news-timeline">.*?<\/div>\s*<\/div>\s*<\/div>)/s,
+            '$1\n<div class="investment-plans">\n<!-- Investment plans will be loaded here -->\n</div>\n'
+        );
     }
-
 
     // Write the file
     fs.writeFileSync(outputPath, content);
