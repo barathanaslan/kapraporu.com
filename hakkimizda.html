@@ -6,12 +6,10 @@
     <title>Hakkımızda - kapraporu.com</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Hakkımızda sayfasına özel stiller */
         .about-page-container {
             margin-top: 40px;
             margin-bottom: 40px;
         }
-
         .about-page-title {
             font-size: 28px;
             font-weight: 800;
@@ -21,7 +19,6 @@
             border-bottom: 2px solid var(--border);
             letter-spacing: -0.5px;
         }
-
         .about-section {
             background-color: var(--white);
             border-radius: 12px;
@@ -30,7 +27,6 @@
             box-shadow: var(--card-shadow);
             margin-bottom: 30px;
         }
-
         .about-section h2 {
             font-size: 20px;
             font-weight: 700;
@@ -39,14 +35,12 @@
             padding-bottom: 10px;
             border-bottom: 1px solid var(--bg-alt);
         }
-
         .team-members {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-top: 20px;
         }
-
         .team-member {
             flex: 1;
             min-width: 250px;
@@ -55,35 +49,21 @@
             padding: 20px;
             border: 1px solid var(--border);
         }
-
         .team-member h3 {
             color: var(--primary);
             font-size: 18px;
             font-weight: 700;
             margin-bottom: 8px;
         }
-        
         .team-member .role {
             font-size: 14px;
             color: var(--text-light);
             font-weight: 500;
             margin-bottom: 12px;
         }
-        
-        .team-member p {
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .team-member {
-                flex: 100%;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Header Component -->
     <kap-header></kap-header>
 
     <div class="container about-page-container">
@@ -97,26 +77,22 @@
 
         <section class="about-section">
             <h2>Ekibimiz</h2>
-            <p>KapRaporu, finans ve teknoloji alanlarında deneyimli bir ekip tarafından geliştirilmiştir. Ekibimiz, kullanıcılara en iyi deneyimi sunmak için sürekli olarak platformu geliştirmektedir.</p>
+            <p>KapRaporu.com, finans ve teknoloji alanlarında deneyimli üç kurucu ortak tarafından geliştirilmiştir.</p>
             
             <div class="team-members">
-                <!-- Bu kısmı kendi ekip bilgilerinizle doldurunuz -->
                 <div class="team-member">
-                    <h3>Ad Soyad</h3>
-                    <div class="role">Kurucu & Geliştirici</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi.</p>
+                    <h3>Barathan Aslan</h3>
+                    <div class="role">Kurucu Ortak</div>
                 </div>
                 
                 <div class="team-member">
-                    <h3>Ad Soyad</h3>
-                    <div class="role">Finansal Analist</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi.</p>
+                    <h3>Batuhan Kalem</h3>
+                    <div class="role">Kurucu Ortak</div>
                 </div>
                 
                 <div class="team-member">
-                    <h3>Ad Soyad</h3>
-                    <div class="role">UI/UX Tasarımcı</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi.</p>
+                    <h3>Ömer Faruk Çelik</h3>
+                    <div class="role">Kurucu Ortak</div>
                 </div>
             </div>
         </section>
@@ -129,14 +105,11 @@
 
         <section class="about-section">
             <h2>İletişim</h2>
-            <p>Soru, öneri ve geri bildirimleriniz için bize <strong>info@kapraporu.com</strong> adresinden ulaşabilirsiniz.</p>
+            <p>Soru, öneri ve geri bildirimleriniz için bize <strong>kapraporu.info@gmail.com</strong> adresinden ulaşabilirsiniz.</p>
         </section>
     </div>
 
-    <!-- Footer Component -->
     <kap-footer></kap-footer>
-
-    <!-- Load components -->
     <script src="components/header.js"></script>
     <script src="components/footer.js"></script>
 </body>

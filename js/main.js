@@ -360,62 +360,95 @@ function displayNoNewsMessage(symbol) {
 
 // --- Homepage function: Load latest news preview ---
 function loadLatestNews() {
-  const newsContainer = document.querySelector('.news-feed');
-  if (!newsContainer || typeof stocksData === 'undefined') return;
-  let allNews = [];
-  for (const symbol in stocksData) {
-      const stock = stocksData[symbol];
-      if (stock.news && Array.isArray(stock.news)) {
-          stock.news.forEach(dayNews => {
-              if (dayNews.items && Array.isArray(dayNews.items)) {
-                  dayNews.items.forEach(item => {
-                      if (item.title && item.content) {
-                          allNews.push({
-                              sortable_date: dayNews.sortable_date || null, date: dayNews.date || "Tarih Yok", time: item.time || "Saat Yok", title: item.title,
-                              desc: (typeof item.content === 'string' ? item.content.replace(/<\/?p>/g, '').substring(0, 150) : 'İçerik yok') + '...',
-                              symbol: stock.symbol
-                          });
-                      }
-                  });
-              }
-          });
-      }
-  }
-  allNews.sort((a, b) => {
-      if (a.sortable_date && b.sortable_date) { return b.sortable_date.localeCompare(a.sortable_date); }
-      try {
-          const dateA = parseTurkishDate(a.date); const dateB = parseTurkishDate(b.date);
-          if (!dateA || !dateB) return 0;
-          if (dateB.getTime() === dateA.getTime()) { return (b.time || '00:00').localeCompare(a.time || '00:00'); }
-          return dateB - dateA;
-      } catch (e) { console.error("Error parsing date for sorting:", a.date, b.date, e); return 0; }
-  });
-  const newsToShow = allNews.slice(0, 10); // Show 10 latest news on homepage
-  newsContainer.innerHTML = `<h2 class="section-title">Son KAP Bildirimleri<span class="update-schedule">Günlük Güncellenir</span></h2>`;
-  if (newsToShow.length > 0) {
-      newsToShow.forEach(news => {
-          const newsCard = document.createElement('div'); newsCard.className = 'news-card';
-          newsCard.innerHTML = `<div class="news-content"><div class="news-meta"><span class="news-time">${news.date || ''} - ${news.time || ''}</span><span class="news-source">KAP</span></div><h3 class="news-title">${news.title || 'Başlık Yok'}</h3><p class="news-desc">${news.desc || ''}</p><div class="related-tickers"><a href="stocks/${news.symbol.toLowerCase()}.html" class="ticker-link"><div class="ticker">${news.symbol}</div></a></div></div>`;
-          newsContainer.appendChild(newsCard);
-      });
-  } else { newsContainer.innerHTML += `<p>Son bildirim bulunamadı.</p>`; }
+    const newsContainer = document.querySelector('.news-feed');
+    if (!newsContainer || typeof stocksData === 'undefined') return;
+    let allNews = [];
+    
+    // Set today's date for filtering
+    const todayDate = "8 Nisan 2025"; // For development purposes
+    
+    for (const symbol in stocksData) {
+        const stock = stocksData[symbol];
+        if (stock.news && Array.isArray(stock.news)) {
+            stock.news.forEach(dayNews => {
+                // Only include news from today
+                if (dayNews.date === todayDate) {
+                    if (dayNews.items && Array.isArray(dayNews.items)) {
+                        dayNews.items.forEach(item => {
+                            if (item.title && item.content) {
+                                allNews.push({
+                                    sortable_date: dayNews.sortable_date || null, 
+                                    date: dayNews.date || "Tarih Yok", 
+                                    time: item.time || "Saat Yok", 
+                                    title: item.title,
+                                    desc: (typeof item.content === 'string' ? item.content.replace(/<\/?p>/g, '').substring(0, 150) : 'İçerik yok') + '...',
+                                    symbol: stock.symbol
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+    
+    // Sort news by time
+    allNews.sort((a, b) => {
+        return (b.time || '00:00').localeCompare(a.time || '00:00');
+    });
+    
+    newsContainer.innerHTML = `<h2 class="section-title">Today's KAP News<span class="update-schedule">Günlük Güncellenir</span></h2>`;
+    if (allNews.length > 0) {
+        allNews.forEach(news => {
+            const newsCard = document.createElement('div'); 
+            newsCard.className = 'news-card';
+            newsCard.innerHTML = `<div class="news-content"><div class="news-meta"><span class="news-time">${news.date || ''} - ${news.time || ''}</span><span class="news-source">KAP</span></div><h3 class="news-title">${news.title || 'Başlık Yok'}</h3><p class="news-desc">${news.desc || ''}</p><div class="related-tickers"><a href="stocks/${news.symbol.toLowerCase()}.html" class="ticker-link"><div class="ticker">${news.symbol}</div></a></div></div>`;
+            newsContainer.appendChild(newsCard);
+        });
+    } else { 
+        newsContainer.innerHTML += `<p style="text-align: center; padding: 20px;">Bugün için KAP bildirimi bulunamadı.</p>`; 
+    }
 }
 
 // --- Homepage function: Load market summary ---
 function loadMarketSummary() {
-  const marketList = document.querySelector('.market-list'); if (!marketList) return;
-  // Replace with real data fetching eventually
-  marketList.innerHTML = `<li class="market-item"><span class="market-name">BIST 100</span><span class="market-value">10,245.67</span></li><li class="market-item"><span class="market-name">Dolar/TL</span><span class="market-value">32.45</span></li><li class="market-item"><span class="market-name">Euro/TL</span><span class="market-value">35.20</span></li><li class="market-item"><span class="market-name">Altın (ONS)</span><span class="market-value">$2350.50</span></li>`;
+    const marketList = document.querySelector('.market-list'); 
+    if (!marketList) return;
+    
+    marketList.innerHTML = `
+        <li class="market-item"><span class="market-name">BIST 100</span><span class="market-value">10,245.67</span></li>
+        <li class="market-item"><span class="market-name">BIST 30</span><span class="market-value">12,876.45</span></li>
+        <li class="market-item"><span class="market-name">BIST TUM</span><span class="market-value">9,854.32</span></li>
+        <li class="market-item"><span class="market-name">TCMB Faizi</span><span class="market-value">25.00%</span></li>
+        <li class="market-item"><span class="market-name">Dolar/TL</span><span class="market-value">32.45</span></li>
+        <li class="market-item"><span class="market-name">Euro/TL</span><span class="market-value">35.20</span></li>
+        <li class="market-item"><span class="market-name">Altın (ONS)</span><span class="market-value">$2350.50</span></li>
+        <li class="market-item"><span class="market-name">BRENT Petrol</span><span class="market-value">$85.70</span></li>
+    `;
 }
 
 // --- Homepage function: Load popular stocks links ---
 function loadPopularStocks() {
-  const popularStocksContainer = document.querySelector('.stock-list-simple'); if (!popularStocksContainer || typeof stocksData === 'undefined') return;
-  const popularSymbols = ["THYAO", "ASELS", "EREGL", "SISE", "GARAN", "KCHOL", "EKGYO"]; // Example
-  popularStocksContainer.innerHTML = '';
-  popularSymbols.forEach(symbol => {
-      if (stocksData[symbol]) { const link = document.createElement('a'); link.href = `stocks/${symbol.toLowerCase()}.html`; link.className = 'stock-link'; link.textContent = symbol; popularStocksContainer.appendChild(link); }
-  });
+    const stocksContainer = document.querySelector('.stock-list-simple'); 
+    if (!stocksContainer || typeof stocksData === 'undefined') return;
+    
+    // BIST30 symbols (use available ones for now)
+    const bist30Symbols = [
+        "THYAO", "ASELS", "EREGL", "SISE", "GARAN", "KCHOL", "EKGYO", 
+        "AKBNK", "FROTO", "KOZAL", "TAVHL", "ISCTR", "ENKAI", "MGROS",
+        "SAHOL", "YKBNK", "ULKER", "TCELL", "AEFES", "CIMSA"
+    ];
+    
+    stocksContainer.innerHTML = '';
+    bist30Symbols.forEach(symbol => {
+        if (stocksData[symbol]) { 
+            const link = document.createElement('a'); 
+            link.href = `stocks/${symbol.toLowerCase()}.html`; 
+            link.className = 'stock-link'; 
+            link.textContent = symbol; 
+            stocksContainer.appendChild(link); 
+        }
+    });
 }
 
 
