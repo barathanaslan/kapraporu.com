@@ -1,13 +1,15 @@
-// js/main.js - CORRECTED VERSION (Handles kap_url)
+// CRITICAL: Don't modify this line - disables default search behavior 
+// to prevent conflicts with the dropdown search in header.js
+const TICKER_SEARCH_ENABLED_IN_HEADER = true;
 
 document.addEventListener('DOMContentLoaded', function() {
   console.log("Document loaded, initializing...");
 
   // Load stock data for index page
-  if (document.querySelector('.news-feed') && typeof stocksData !== 'undefined') { // Check if stocksData exists (only on index)
+  if (document.querySelector('.news-feed') && typeof stocksData !== 'undefined') {
       loadLatestNews();
       loadMarketSummary();
-      loadPopularStocks(); // Added function call
+      loadPopularStocks();
   }
 
   // Load stock specific data for stock pages
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (symbolElement) {
           const symbol = symbolElement.textContent;
           console.log("Stock page detected for symbol:", symbol);
-          loadStockPageData(symbol); // Use a renamed function for clarity
+          loadStockPageData(symbol);
       } else {
           console.error("Stock symbol element not found on stock page!");
       }
@@ -36,7 +38,6 @@ async function loadStockPageData(symbol) {
   if (timelineContainer) timelineContainer.innerHTML = '<div id="loading-indicator" style="padding: 20px; text-align: center;">Bildirimler yükleniyor...</div>';
   if (detailContainer) detailContainer.innerHTML = '<div id="detail-loading" style="padding: 20px; text-align: center;">Bildirim detayı yükleniyor...</div>';
   if (plansContainer) plansContainer.innerHTML = '<div id="plans-loading" style="padding: 15px; text-align: center; color: var(--text-lighter);">Yatırım planları yükleniyor...</div>';
-
 
   // Load investment plans first
   await loadInvestmentPlans(symbol);
@@ -96,7 +97,6 @@ async function loadStockPageData(symbol) {
   }
 }
 
-
 // --- Loads the news items into the timeline ---
 function loadNewsTimeline(symbol, newsData) {
   console.log("Rendering news timeline for", symbol);
@@ -127,18 +127,16 @@ function loadNewsTimeline(symbol, newsData) {
               newsItem.className = item.active ? 'news-item active' : 'news-item'; // Check if item is marked active
               newsItem.setAttribute('data-content', item.content || '');
 
-              // *** VITAL CHANGE: Store kap_url in data attribute ***
+              // Store kap_url in data attribute
               if (item.kap_url && typeof item.kap_url === 'string' && item.kap_url.trim() !== '') {
                   newsItem.setAttribute('data-kap-url', item.kap_url);
               } else {
                    newsItem.removeAttribute('data-kap-url'); // Ensure it's not present if missing in data
               }
-              // *** END VITAL CHANGE ***
 
               // Keep file_name attribute if you still need it for any reason
               if (item.file_name) { newsItem.setAttribute('data-file', item.file_name); }
                else { newsItem.removeAttribute('data-file');}
-
 
               newsItem.innerHTML = `
                   <div class="news-time">${item.time || 'N/A'}</div>
@@ -165,9 +163,6 @@ function addNewsItemClickHandlers(symbol) {
       console.log(`Attaching click handlers to ${newsItems.length} news items for ${symbol}`);
 
       newsItems.forEach(item => {
-          // To prevent adding multiple listeners if this function were called again,
-          // we could check if a listener already exists, or use a named function and remove it first.
-          // For simplicity here, we assume it's called once after loadNewsTimeline.
           item.addEventListener('click', function handleNewsItemClick() { // Using 'function' for correct 'this' binding
               const titleElement = this.querySelector('.news-title-timeline');
               console.log("News item clicked:", titleElement ? titleElement.textContent : 'N/A');
@@ -183,10 +178,8 @@ function addNewsItemClickHandlers(symbol) {
               const title = titleElement ? titleElement.textContent : 'Başlık Yok';
               const content = this.getAttribute('data-content') || "<p>Detaylı bilgi mevcut değil.</p>";
 
-              // *** VITAL CHANGE: Retrieve kap_url from data attribute ***
+              // Retrieve kap_url from data attribute
               const kapUrl = this.getAttribute('data-kap-url'); // Gets the string value or null
-              // *** END VITAL CHANGE ***
-
 
               // Prepare data object for the detail view
               const customNewsData = {
@@ -204,7 +197,6 @@ function addNewsItemClickHandlers(symbol) {
   }, 50); // 50ms delay
 }
 
-
 // --- Updates the news detail panel ---
 function updateNewsDetail(newsData, symbol) {
   console.log("Updating news detail. Received kap_url:", newsData.kap_url); // Log received URL
@@ -221,7 +213,7 @@ function updateNewsDetail(newsData, symbol) {
   // Clear loading indicator
   document.getElementById('detail-loading')?.remove(); // Use optional chaining
 
-  // *** VITAL CHANGE: Generate link based on kap_url ***
+  // Generate link based on kap_url
   let kapLinkHTML = '';
   // Check if kap_url exists, is a string, and is not empty
   if (newsData.kap_url && typeof newsData.kap_url === 'string' && newsData.kap_url.trim() !== '') {
@@ -238,7 +230,6 @@ function updateNewsDetail(newsData, symbol) {
       console.log("No specific KAP URL provided for this item. Button will not be displayed.");
       // No button is added if kap_url is missing/invalid
   }
-  // *** END VITAL CHANGE ***
 
   // Construct the detail HTML
   newsDetail.innerHTML = `
@@ -251,11 +242,10 @@ function updateNewsDetail(newsData, symbol) {
       </div>
       <div class="news-detail-content">
           ${newsData.content}
-          ${kapLinkHTML} {/* Insert the generated button/link HTML here */}
+          ${kapLinkHTML}
       </div>
   `;
 }
-
 
 // --- Finds the default news item to display initially ---
 function findActiveNews(newsData) {
@@ -451,9 +441,7 @@ function loadPopularStocks() {
     });
 }
 
-
 // --- Utility function to parse Turkish dates ---
-// Improved version to handle potential errors
 function parseTurkishDate(dateString) {
   if (!dateString || typeof dateString !== 'string') return null;
   const parts = dateString.split(' ');
@@ -475,15 +463,13 @@ function parseTurkishDate(dateString) {
       console.error("Error constructing date:", dateString, e);
       return null;
   }
-
 }
-
 
 // --- Utility function to get month number from Turkish name ---
 function getMonthNumber(monthName) {
   if (!monthName || typeof monthName !== 'string') return undefined;
   const cleanedMonth = monthName.trim().toLowerCase();
-  // Explicitly handle Turkish dotted/dotless i issues if necessary, though lowercase often suffices
+  // Explicitly handle Turkish dotted/dotless i issues if necessary
   const months = {
       'ocak': 0, 'şubat': 1, 'mart': 2, 'nisan': 3,
       'mayıs': 4, 'haziran': 5, 'temmuz': 6, 'ağustos': 7,
@@ -497,42 +483,7 @@ function getMonthNumber(monthName) {
   return months[cleanedMonth]; // Returns undefined if not found
 }
 
-// Add this to your main.js file (at the end)
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.querySelector('.search-bar input');
-    
-    if (searchInput) {
-        // Add event listener for search functionality
-        searchInput.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase().trim();
-            
-            // If on index page, filter stock list
-            const stockLinks = document.querySelectorAll('.stock-link');
-            if (stockLinks.length > 0) {
-                stockLinks.forEach(link => {
-                    const stockText = link.textContent.toLowerCase();
-                    if (searchTerm === '' || stockText.includes(searchTerm)) {
-                        link.style.display = '';
-                    } else {
-                        link.style.display = 'none';
-                    }
-                });
-            }
-            
-            // If on index page, filter news cards
-            const newsCards = document.querySelectorAll('.news-card');
-            if (newsCards.length > 0) {
-                newsCards.forEach(card => {
-                    const title = card.querySelector('.news-title').textContent.toLowerCase();
-                    const ticker = card.querySelector('.ticker')?.textContent.toLowerCase() || '';
-                    
-                    if (searchTerm === '' || title.includes(searchTerm) || ticker.includes(searchTerm)) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            }
-        });
-    }
-});
+/* 
+ * REMOVED: Original search functionality that was conflicting with header.js
+ * Search is now handled by the dropdown in header.js
+ */
