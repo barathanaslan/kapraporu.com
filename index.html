@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kap Raporu - Borsa İstanbul Şirket Haberleri</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header Component -->
+    <kap-header></kap-header>
+
+    <div class="container">
+        <main class="main">
+            <div class="news-feed">
+                <h2 class="section-title">
+                    Bugünün KAP Raporları
+                    <span class="update-schedule">Günlük Güncellenir</span>
+                </h2>
+
+                <div class="news-card">
+                    <div class="news-content">
+                        <div class="news-meta">
+                             <span class="news-time">7 Nisan 2025 - 09:15</span>
+                            <span class="news-source">KAP</span>
+                        </div>
+                         <h3 class="news-title">Yükleniyor...</h3>
+                         <p class="news-desc">İçerik yükleniyor, lütfen bekleyiniz.</p>
+                        <div class="related-tickers">
+                             <a href="stocks/thyao.html" class="ticker-link"><div class="ticker">THYAO</div></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <aside class="sidebar"> 
+                <div class="widget-card"> 
+                    <h3 class="section-title">
+                        Piyasa Özeti
+                        <span class="update-schedule">Veri Bekleniyor</span>
+                    </h3>
+                    <ul class="market-list">
+                        <li class="market-item">
+                            <span class="market-name">BIST 100</span>
+                            <span class="market-value">Yükleniyor...</span>
+                        </li>
+                         <li class="market-item">
+                            <span class="market-name">Dolar/TL</span>
+                            <span class="market-value">Yükleniyor...</span>
+                        </li>
+                         <li class="market-item">
+                            <span class="market-name">Euro/TL</span>
+                            <span class="market-value">Yükleniyor...</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="widget-card">
+                    <h3 class="section-title">
+                        BIST30 Hisseleri
+                        <span class="update-schedule">Günlük Güncellenir</span>
+                    </h3>
+                    <div class="stock-list-simple">
+                        <!-- Stocks will be loaded dynamically -->
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Footer Component -->
+    <kap-footer></kap-footer>
+
+    <!-- Load components and data -->
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
+    <script src="data/stocks.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

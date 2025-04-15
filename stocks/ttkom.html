@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TTKOM - Türk Telekomünikasyon A.Ş. | Kap Raporu</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <kap-header></kap-header>
+
+    <div class="container">
+        <div class="stock-header">
+            <div class="stock-info-container">
+                <div class="stock-info">
+                    <div class="stock-meta">
+                         <div class="stock-symbol">TTKOM</div>
+                        <div class="stock-name">Türk Telekomünikasyon A.Ş.</div>
+                        <div class="stock-sector">Telekomünikasyon</div>
+                    </div>
+                     <div class="stock-description">Türkiye'nin lider entegre telekomünikasyon operatörü.</div>
+                </div>
+                <div class="stock-price-container">
+                    <div class="current-price">₺32,00</div>
+                    <div class="price-change price-up"><span>+₺0,40</span> <span>(+1,27%)</span></div>
+                    <div class="update-time">13.04.2025 - BIST Kapanış (Tahmini)</div>
+                </div>
+
+                <div class="filter-tabs">
+                    <div class="filter-tab active" data-category="all">Tümü</div>
+                    <div class="filter-tab" data-category="financial">Finansal</div>
+                    <div class="filter-tab" data-category="investment">Yatırım</div>
+                    <div class="filter-tab" data-category="operational">Operasyonel</div>
+                    <div class="filter-tab" data-category="management">Yönetim</div>
+                    <div class="filter-tab" data-category="other">Diğer</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="news-timeline">
+                 <h2 class="section-title">Haber Akışı (TTKOM)</h2>
+
+                <div class="timeline-container">
+                    <div class="timeline">
+                        <div id="loading-indicator" style="padding: 20px; text-align: center;">Bildirimler yükleniyor...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="investment-plans" style="display: none;"> <div id="plans-loading" style="padding: 15px; text-align: center; color: var(--text-lighter);">Yatırım planları yükleniyor...</div>
+            </div>
+        </div>
+    </div>
+
+    <kap-footer></kap-footer>
+
+    <script src="../components/header.js"></script>
+    <script src="../components/footer.js"></script>
+    <script src="../js/main.js"></script>
+    </body>
+</html>

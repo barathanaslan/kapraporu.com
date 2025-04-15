@@ -1,0 +1,1143 @@
+/* General Reset and Font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Custom Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+/* Variables - Complete redesign with a distinctive color palette */
+:root {
+    --primary: #2D3047; /* Deep navy blue */
+    --primary-light: #414559;
+    --primary-dark: #1F2133;
+    --secondary: #BF4342; /* Rich burgundy red */
+    --secondary-light: #C96362;
+    --accent: #F9C22E; /* Warm amber yellow */
+    --accent-light: #FFD966;
+    --text: #121420; /* Almost black */
+    --text-light: #595A6B;
+    --text-lighter: #8D8E9D;
+    --bg: #F5F5F7; /* Soft off-white background */
+    --bg-alt: #E6E8ED; /* Slightly darker background */
+    --border: #D8DAE5; /* Subtle border color */
+    --white: #FFFFFF;
+    --green: #357F65; /* Muted green */
+    --red: #BF4342; /* Consistent with secondary */
+    --card-shadow: 0 2px 8px rgba(29, 30, 45, 0.1), 0 1px 3px rgba(29, 30, 45, 0.05);
+    --hover-shadow: 0 6px 16px rgba(29, 30, 45, 0.12), 0 3px 6px rgba(29, 30, 45, 0.08);
+}
+
+body {
+    color: var(--text);
+    line-height: 1.6;
+    background-color: var(--bg);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Links - More distinctive hover effects */
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+a:hover {
+    color: var(--secondary);
+}
+
+/* Header - Modernized with distinctive treatment */
+header {
+    background-color: var(--white);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: -0.5px;
+}
+
+.logo:hover {
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
+    pointer-events: none;
+}
+
+.search-container {
+    flex-grow: 0.4;
+    max-width: 420px;
+    margin: 0 20px;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: var(--bg);
+    border-radius: 8px;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    transition: all 0.25s ease;
+}
+
+.search-bar:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(45, 48, 71, 0.1);
+    background-color: var(--white);
+}
+
+.search-bar input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--text);
+    font-family: 'Manrope', sans-serif;
+}
+
+.search-bar input:focus {
+    outline: none;
+}
+
+.search-bar input::placeholder {
+    color: var(--text-lighter);
+}
+
+.search-icon {
+    color: var(--text-lighter);
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+/* Update Info Bar - Distinctive design */
+.update-info {
+    background-color: var(--primary);
+    padding: 10px 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--white);
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+/* Main Layout */
+.main {
+    display: flex;
+    gap: 32px;
+    margin: 40px 0;
+}
+
+.news-feed {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.sidebar {
+    width: 330px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 12px;
+    letter-spacing: -0.3px;
+}
+
+.update-schedule {
+    font-size: 13px;
+    color: var(--text-lighter);
+    font-weight: 500;
+}
+
+/* News Cards (Homepage) - More distinctive design */
+.news-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--hover-shadow);
+}
+
+.news-content {
+    padding: 24px;
+}
+
+.news-meta {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-lighter);
+    margin-bottom: 12px;
+    gap: 14px;
+}
+
+.news-source {
+    padding: 3px 10px;
+    background-color: var(--primary-light);
+    color: var(--white);
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+}
+
+.news-title {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    color: var(--primary);
+    letter-spacing: -0.3px;
+}
+
+.news-desc {
+    font-size: 15px;
+    color: var(--text-light);
+    margin-bottom: 18px;
+    line-height: 1.6;
+}
+
+.related-tickers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ticker {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    background-color: var(--bg);
+    color: var(--primary);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border);
+}
+
+.ticker-link:hover .ticker {
+    background-color: var(--primary);
+    color: var(--white);
+    text-decoration: none;
+    transform: translateY(-2px);
+    border-color: var(--primary);
+}
+
+.ticker-link:hover {
+    text-decoration: none;
+}
+
+/* Sidebar Widgets - Distinctive design */
+.widget-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 22px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+}
+
+.market-list {
+    list-style: none;
+}
+
+.market-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+}
+
+.market-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.market-name {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.market-value {
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stock-list-simple {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stock-link {
+    padding: 8px 14px;
+    background-color: var(--bg);
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.stock-link:hover {
+    background-color: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+/* --- Styles for Stock Page --- */
+.stock-header {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 28px;
+    margin: 40px 0;
+    border: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+    box-shadow: var(--card-shadow);
+}
+
+.stock-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.stock-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.stock-symbol {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+}
+
+.stock-name {
+    color: var(--text-light);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.stock-sector {
+    background-color: var(--primary-light);
+    color: var(--white);
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.stock-description {
+    font-size: 15px;
+    color: var(--text-light);
+    margin-top: 8px;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.stock-price-container {
+    text-align: right;
+    flex-shrink: 0;
+    padding: 20px;
+    background-color: var(--bg);
+    border-radius: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.current-price {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--primary);
+    letter-spacing: -0.5px;
+}
+
+.price-change {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.price-up {
+    background-color: rgba(53, 127, 101, 0.1);
+    color: var(--green);
+}
+
+.price-down {
+    background-color: rgba(191, 67, 66, 0.1);
+    color: var(--red);
+}
+
+.update-time {
+    font-size: 13px;
+    color: var(--text-lighter);
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Main Content Layout (Stock Page) */
+.main-content {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 50px;
+}
+
+.news-timeline {
+    flex-basis: 58%;
+    min-width: 0;
+}
+
+.stock-sidebar {
+    flex-basis: 42%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* Timeline (Stock Page) - Distinctive design */
+.timeline-container {
+    background-color: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    max-height: 800px;
+    overflow-y: auto;
+    box-shadow: var(--card-shadow);
+}
+
+.timeline {
+    position: relative;
+    padding: 28px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 27px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--border);
+}
+
+.day-marker {
+    display: flex;
+    align-items: center;
+    margin: 28px 0;
+    position: relative;
+}
+
+.day-marker:first-child {
+    margin-top: 0;
+}
+
+.day-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    margin-right: 20px;
+    margin-left: 18px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.today-dot {
+    background-color: var(--primary);
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.past-dot {
+    background-color: var(--bg-alt);
+    border: 3px solid var(--white);
+}
+
+.day-date {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.3px;
+}
+
+.today-date {
+    color: var(--primary);
+}
+
+.news-items {
+    margin-left: 42px;
+    margin-bottom: 28px;
+    padding-left: 18px;
+}
+
+.news-item {
+    background-color: var(--bg);
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 14px;
+    border-left: 4px solid var(--border);
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.news-item:hover {
+    background-color: var(--white);
+    border-left-color: var(--secondary);
+    transform: translateX(6px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.news-item.active {
+    background-color: var(--white);
+    border-left-color: var(--secondary);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.news-time {
+    font-size: 13px;
+    color: var(--text-lighter);
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.news-title-timeline {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: var(--primary);
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+}
+
+.news-category {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background-color: var(--primary-light);
+    color: var(--white);
+    margin-top: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.no-news-day {
+    color: var(--text-lighter);
+    font-style: italic;
+    margin-left: 42px;
+    padding-left: 18px;
+    margin-bottom: 28px;
+    font-size: 15px;
+}
+
+/* News Detail (Stock Page Sidebar) */
+.news-detail {
+    background-color: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 28px;
+    box-shadow: var(--card-shadow);
+}
+
+.news-detail-header {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.news-detail-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.news-detail-time {
+    font-size: 14px;
+    color: var(--text-lighter);
+    font-weight: 500;
+}
+
+.news-detail-source {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--white);
+    background-color: var(--primary-light);
+    padding: 3px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+}
+
+.news-detail-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    color: var(--primary);
+    letter-spacing: -0.3px;
+}
+
+.news-detail-content {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text);
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.news-detail-content p {
+    margin-bottom: 16px;
+}
+
+.news-detail-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* KAP File Button Styling */
+.file-link {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.file-button {
+    display: inline-block;
+    background-color: var(--secondary);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 2px 6px rgba(191, 67, 66, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.file-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+.file-button:hover {
+    background-color: #A33A39;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(191, 67, 66, 0.3);
+    text-decoration: none;
+}
+
+.file-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(191, 67, 66, 0.2);
+}
+
+/* Filter Panel */
+.filter-panel {
+    background-color: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    box-shadow: var(--card-shadow);
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.filter-option {
+    padding: 8px 16px;
+    background-color: var(--bg);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.filter-option:hover {
+    background-color: var(--bg-alt);
+    color: var(--primary);
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.filter-option.active {
+    background-color: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 2px 4px rgba(29, 30, 45, 0.2);
+}
+
+.search-filter input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background-color: var(--bg);
+    font-size: 14px;
+    margin-top: 14px;
+    transition: all 0.2s ease;
+    font-family: 'Manrope', sans-serif;
+}
+
+.search-filter input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(45, 48, 71, 0.1);
+    background-color: var(--white);
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-dark);
+    padding: 40px 0 30px;
+    margin-top: 60px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.footer-content .logo {
+    font-size: 20px;
+    color: var(--white);
+}
+
+.footer-content .logo-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    background-color: var(--white);
+    color: var(--primary-dark);
+}
+
+.footer-info {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.disclaimer {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 24px;
+    line-height: 1.6;
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 900px) {
+    .main {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        order: 2;
+    }
+
+    .news-feed {
+        order: 1;
+    }
+
+    .header-container {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .search-container {
+        order: 3;
+        margin: 12px 0 0;
+        max-width: 100%;
+        flex-grow: 1;
+        width: 100%;
+    }
+
+    /* Stock Page Specific Mobile */
+    .main-content {
+        flex-direction: column;
+    }
+
+    .news-timeline, .stock-sidebar {
+        flex-basis: 100%;
+    }
+
+    .stock-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .stock-price-container {
+        text-align: left;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .news-title, .news-title-timeline {
+        font-size: 16px;
+    }
+
+    .news-detail-title {
+        font-size: 18px;
+    }
+    
+    .stock-header {
+        padding: 20px;
+    }
+    
+    .timeline {
+        padding: 20px;
+    }
+    
+    .news-detail {
+        padding: 20px;
+    }
+}
+
+/* ----- INVESTMENT PLANS STYLING ----- */
+.investment-plans {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .plans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .plan-card {
+    margin-bottom: 20px;
+  }
+  
+  .plan-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+  
+  .plan-meta {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .plan-category {
+    background-color: var(--primary-light);
+    color: var(--white);
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  
+  .plan-date {
+    font-size: 14px;
+    color: var(--text-lighter);
+  }
+  
+  .plan-description {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  
+  .plan-details {
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  
+  .plan-updates {
+    background-color: var(--bg);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 12px;
+  }
+  
+  .plan-updates h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+  
+  .plan-updates ul {
+    list-style: none;
+  }
+  
+  .plan-updates li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .plan-updates li:last-child {
+    border-bottom: none;
+  }
+  
+  .update-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  
+  .update-summary {
+    font-size: 14px;
+    color: var(--text);
+  }
+
+/* Updated Stock Header Layout */
+.stock-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+/* New Filter Tabs Style */
+.filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+
+.filter-tab {
+    padding: 8px 16px;
+    background-color: var(--bg);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.filter-tab:hover {
+    background-color: var(--bg-alt);
+    color: var(--primary);
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.filter-tab.active {
+    background-color: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 2px 4px rgba(29, 30, 45, 0.2);
+}
+
+/* Content Area Layout */
+.content-area {
+    display: flex;
+    margin-top: 25px;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+/* Expandable News Items */
+.news-item {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.news-item.expanded {
+    background-color: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateX(0) !important;
+}
+
+.news-content-expandable {
+    padding-top: 15px;
+    border-top: 1px dashed var(--border);
+    margin-top: 15px;
+    line-height: 1.6;
+}
+
+.news-content-expandable p {
+    margin-bottom: 12px;
+}
+
+/* Responsive Investment Plans Section */
+.news-timeline {
+    flex-grow: 1;
+    min-width: 0;
+    transition: all 0.3s ease;
+}
+
+.investment-plans {
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.investment-plans.visible {
+    width: 40%;
+    min-width: 300px;
+    opacity: 1;
+    overflow: visible;
+}
+
+.news-timeline.compressed {
+    width: 60%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .content-area {
+        flex-direction: column;
+    }
+    
+    .news-timeline.compressed,
+    .investment-plans.visible {
+        width: 100%;
+    }
+    
+    .investment-plans.visible {
+        margin-top: 20px;
+    }
+}
+
+/* Update index.html header */
+.index-title-turkish {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEFES - Anadolu Efes Biracılık ve Malt Sanayii A.Ş. | Kap Raporu</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <kap-header></kap-header>
+
+    <div class="container">
+        <div class="stock-header">
+            <div class="stock-info-container">
+                <div class="stock-info">
+                    <div class="stock-meta">
+                         <div class="stock-symbol">AEFES</div>
+                        <div class="stock-name">Anadolu Efes Biracılık ve Malt Sanayii A.Ş.</div>
+                        <div class="stock-sector">İçecek</div>
+                    </div>
+                     <div class="stock-description">Türkiye merkezli uluslararası içecek grubu.</div>
+                </div>
+                <div class="stock-price-container">
+                    <div class="current-price">₺150,80</div>
+                    <div class="price-change price-down"><span>-₺1,20</span> <span>(-0,79%)</span></div>
+                    <div class="update-time">13.04.2025 - BIST Kapanış (Tahmini)</div>
+                </div>
+
+                <div class="filter-tabs">
+                    <div class="filter-tab active" data-category="all">Tümü</div>
+                    <div class="filter-tab" data-category="financial">Finansal</div>
+                    <div class="filter-tab" data-category="investment">Yatırım</div>
+                    <div class="filter-tab" data-category="operational">Operasyonel</div>
+                    <div class="filter-tab" data-category="management">Yönetim</div>
+                    <div class="filter-tab" data-category="other">Diğer</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="news-timeline">
+                 <h2 class="section-title">Haber Akışı (AEFES)</h2>
+
+                <div class="timeline-container">
+                    <div class="timeline">
+                        <div id="loading-indicator" style="padding: 20px; text-align: center;">Bildirimler yükleniyor...</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="investment-plans" style="display: none;"> <div id="plans-loading" style="padding: 15px; text-align: center; color: var(--text-lighter);">Yatırım planları yükleniyor...</div>
+            </div>
+        </div>
+    </div>
+
+    <kap-footer></kap-footer>
+
+    <script src="../components/header.js"></script>
+    <script src="../components/footer.js"></script>
+    <script src="../js/main.js"></script>
+    </body>
+</html>
