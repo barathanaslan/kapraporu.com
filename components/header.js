@@ -12,7 +12,7 @@ class KapHeader extends HTMLElement {
       <header>
         <div class="container header-container">
           <a href="/" class="logo">
-            <div class="logo-icon">K</div> Kap Raporu
+            <div class="logo-icon">F</div> Finans Raporu
           </a>
           <div class="search-container">
             <div class="search-bar" style="position: relative;">
@@ -26,7 +26,7 @@ class KapHeader extends HTMLElement {
 
       <div class="update-info">
         <div class="container">
-          Sayfa Yüklenme Zamanı: ${currentLocaleDate}, ${currentLocaleTime} | Veriler KAP'tan API ile alınmaktadır.
+          Sayfa Yüklenme Zamanı: ${currentLocaleDate}, ${currentLocaleTime} | Piyasa bilgileri çeşitli kaynaklardan derlenmektedir.
         </div>
       </div>
     `;

@@ -2,27 +2,18 @@
 const fs = require('fs');
 const path = require('path');
 
-// --- Load stocksData ---
-const stocksJSPath = path.join(__dirname, 'data', 'stocks.js');
+// --- Load stocksData directly as a module ---
 let stocksData = {};
 try {
-    let stocksJSContent = fs.readFileSync(stocksJSPath, 'utf8');
-    // Basic cleaning - assumes stocks.js defines 'const stocksData = {...};'
-    stocksJSContent = stocksJSContent.replace(/^const stocksData =/m, ''); // Match beginning of line
-    stocksJSContent = stocksJSContent.replace(/;\s*$/g, ''); // Remove trailing semicolon
-
-    // WARNING: eval is potentially unsafe. Use with caution.
-    // Ensure stocks.js ONLY contains the object definition.
-    // A safer approach is to store metadata as JSON.
-    stocksData = eval('(' + stocksJSContent + ')');
+    // Simply require the stock data file directly
+    // This takes advantage of the module.exports at the bottom of stocks.js
+    const stocksModule = require('./data/stocks.js');
+    stocksData = stocksModule.stocksData;
     console.log("Successfully loaded stocksData object.");
 } catch (e) {
-    console.error("Error loading or parsing /data/stocks.js:", e);
-    console.error("Ensure /data/stocks.js defines the 'stocksData' object correctly and ends with ';'.");
+    console.error("Error loading stocks.js module:", e);
     process.exit(1);
 }
-// --- End Load stocksData ---
-
 
 // Make sure the stocks directory exists
 const stocksDir = path.join(__dirname, 'stocks');
@@ -50,7 +41,6 @@ if (!templateHtml.includes('<script src="../js/main.js"></script>')) {
      templateHtml = templateHtml.replace('</body>', '    <script src="../js/main.js"></script>\n</body>');
      console.log("Added main.js script tag to template.");
 }
-// ---
 
 // Get all stock symbols from the loaded stocksData
 const symbols = Object.keys(stocksData);
@@ -76,21 +66,32 @@ symbols.forEach(symbol => {
 
     try {
         // 1. Replace Title
-        content = content.replace(/<title>.*?<\/title>/, `<title>${symbol} - ${stockInfo.name || symbol} | Kap Raporu</title>`);
+        content = content.replace(/<title>.*?<\/title>/, `<title>${symbol} - ${stockInfo.name || symbol} | Finans Raporu</title>`);
 
         // 2. Replace Header Info (using more specific selectors if needed)
         content = content.replace(/(<div class="stock-symbol">).*?(<\/div>)/, `$1${symbol}$2`);
         content = content.replace(/(<div class="stock-name">).*?(<\/div>)/, `$1${stockInfo.name || 'N/A'}$2`);
         content = content.replace(/(<div class="stock-sector">).*?(<\/div>)/, `$1${stockInfo.sector || 'N/A'}$2`);
         // Use regex for description, handle potential multiline placeholders
-        content = content.replace(/(<div class="stock-description">)[\s\S]*?(<\/div>)/, `$1${stockInfo.description || 'KAP bildirimleri aşağıda listelenmiştir.'}$2`);
+        content = content.replace(/(<div class="stock-description">)[\s\S]*?(<\/div>)/, `$1${stockInfo.description || 'Şirket bildirimleri aşağıda listelenmiştir.'}$2`);
 
         // 3. Replace Price Info
-        content = content.replace(/(<div class="current-price">).*?(<\/div>)/, `$1${stockInfo.price || 'N/A'}$2`);
-        const priceChangeClass = stockInfo.isPositive ? 'price-change price-up' : 'price-change price-down';
-        // Use regex for price change, handle potential multiline placeholders
-        content = content.replace(/<div class="price-change.*?>[\s\S]*?<\/div>/, `<div class="${priceChangeClass}"><span>${stockInfo.change || ''}</span> <span>(${stockInfo.changePercent || ''})</span></div>`);
-        content = content.replace(/(<div class="update-time">).*?(<\/div>)/, `$1${stockInfo.lastUpdate || new Date().toLocaleDateString('tr-TR') + ' (Veri Yok)'}$2`); // Add fallback
+        // For price, check if priceInfo exists and has price, otherwise use default "Yükleniyor..."
+        content = content.replace(/(<div class="current-price">).*?(<\/div>)/, 
+            `$1${stockInfo.priceInfo?.price || 'Yükleniyor...'}$2`);
+        
+        // Default to "price-up" class if isPositive not specified
+        const priceChangeClass = (stockInfo.priceInfo?.isPositive === false) 
+            ? 'price-change price-down' 
+            : 'price-change price-up';
+        
+        // Use default values for change and percentage if not provided
+        content = content.replace(/<div class="price-change.*?>[\s\S]*?<\/div>/, 
+            `<div class="${priceChangeClass}"><span>${stockInfo.priceInfo?.change || '0,00'}</span> <span>(${stockInfo.priceInfo?.changePercent || '0,00%'})</span></div>`);
+        
+        // For last update, use priceInfo.lastUpdate or a default
+        content = content.replace(/(<div class="update-time">).*?(<\/div>)/, 
+            `$1${stockInfo.priceInfo?.lastUpdate || 'Yükleniyor...'}$2`);
 
         // 4. Replace News Header Symbol in H2
         content = content.replace(/(<h2 class="section-title">Haber Akışı \().*?(\))/, `$1${symbol}$2`);
@@ -99,10 +100,14 @@ symbols.forEach(symbol => {
         // Find the timeline div and replace its *inner* content
         content = content.replace(/(<div class="timeline">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/div>\s*<div class="investment-plans">)/s, '$1$2');
 
+        // 6. Replace any remaining "KAP" references with appropriate terms
+        content = content.replace(/KAP bildirimleri/g, 'Şirket bildirimleri');
+        content = content.replace(/KAP bildirim/g, 'Şirket bildirim');
+        content = content.replace(/Kap Raporu/g, 'Finans Raporu');
 
-        // 6. Write the file
+        // 7. Write the file
         fs.writeFileSync(outputPath, content);
-        // console.log(`Generated/Updated stock page: ${outputPath}`); // Keep console cleaner
+        console.log(`Generated/Updated stock page: ${symbol}`); // Show progress
         createdCount++;
 
     } catch (err) {

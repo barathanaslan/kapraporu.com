@@ -102,7 +102,7 @@ function loadNewsTimeline(symbol, newsData) {
     const timeline = document.querySelector('.timeline');
     if (!timeline) { console.error("Timeline element not found!"); return; }
     if (!Array.isArray(newsData)) { console.error("Invalid news data format.", newsData); timeline.innerHTML = `<div class="no-news-day" style="text-align: center; padding: 20px; color: var(--red);">Haber verisi hatalı formatta.</div>`; return; }
-    if (newsData.length === 0) { console.warn("No news days for", symbol); timeline.innerHTML = `<div class="no-news-day" style="text-align: center; padding: 20px;">${symbol} için kayıtlı KAP bildirimi bulunamadı.</div>`; return; }
+    if (newsData.length === 0) { console.warn("No news days for", symbol); timeline.innerHTML = `<div class="no-news-day" style="text-align: center; padding: 20px;">${symbol} için kayıtlı şirket bildirimi bulunamadı.</div>`; return; }
 
     timeline.innerHTML = ''; // Clear loading/previous
     const todaySortable = getTodaySortableDate(); // Get today's date once
@@ -138,11 +138,13 @@ function loadNewsTimeline(symbol, newsData) {
                 newsItem.setAttribute('data-category-value', item.category); // Store raw category for filtering
 
 
-                // Generate KAP link HTML only if kap_url is valid
-                let kapLinkHTML = '';
-                if (item.kap_url && typeof item.kap_url === 'string' && item.kap_url.trim() !== '' && item.kap_url.startsWith('http')) {
-                     kapLinkHTML = `<div class="file-link" style="margin-top: 15px; text-align: left;"> <a href="${item.kap_url}" target="_blank" class="file-button" style="padding: 8px 16px; font-size: 13px;"> KAP Bildirimine Git
-                         </a>
+                // Generate relevant link HTML only if url is valid
+                let linkHTML = '';
+                if (item.url && typeof item.url === 'string' && item.url.trim() !== '' && item.url.startsWith('http')) {
+                     linkHTML = `<div class="file-link" style="margin-top: 15px; text-align: left;">
+                       <a href="${item.url}" target="_blank" class="file-button" style="padding: 8px 16px; font-size: 13px;">
+                         Kaynağa Git
+                       </a>
                      </div>`;
                 }
 
@@ -153,7 +155,7 @@ function loadNewsTimeline(symbol, newsData) {
                     </div>
                     <div class="news-content-expandable" style="display: none; padding-top: 15px; border-top: 1px dashed var(--border); margin-top: 10px;">
                         ${item.content || '<p>İçerik bulunamadı.</p>'}
-                        ${kapLinkHTML}
+                        ${linkHTML}
                     </div>`;
                 newsItemsContainer.appendChild(newsItem);
             });
@@ -239,7 +241,7 @@ function setupNewsItemExpansion() {
         const newsItem = header.closest('.news-item');
         if (!newsItem) return; // Should not happen if header is found
 
-         // Prevent expansion if clicking the KAP link *inside* the expanded area (though the listener is on the header now)
+         // Prevent expansion if clicking the link *inside* the expanded area (though the listener is on the header now)
          // if (e.target.closest('a.file-button')) {
          //     return;
          // }
@@ -282,14 +284,14 @@ async function loadInvestmentPlans(symbol) {
                                <div class="update-date">${update.date || ''}</div>
                                <div class="update-summary">${update.summary || ''}</div>
                                ${update.details ? `<div class="update-details" style="font-size: 0.9em; color: var(--text-light); margin-top: 5px;">${update.details}</div>` : ''}
-                               ${(update.kap_url && update.kap_url.startsWith('http')) ? `<a href="${update.kap_url}" target="_blank" style="font-size: 0.85em; margin-top: 8px; display: inline-block; color: var(--secondary);">İlgili KAP Bildirimi</a>` : ''}
+                               ${(update.url && update.url.startsWith('http')) ? `<a href="${update.url}" target="_blank" style="font-size: 0.85em; margin-top: 8px; display: inline-block; color: var(--secondary);">İlgili Bildirim</a>` : ''}
                            </li>`).join('')}</ul></div>`;
               }
 
-               // Generate link for the main plan KAP URL
-              let mainKapLinkHTML = '';
-              if (plan.kap_url && typeof plan.kap_url === 'string' && plan.kap_url.trim() !== '' && plan.kap_url.startsWith('http')) {
-                  mainKapLinkHTML = `<a href="${plan.kap_url}" target="_blank" style="font-size: 0.85em; color: var(--secondary);">Ana Bildirim (KAP)</a>`;
+               // Generate link for the main source URL
+              let mainLinkHTML = '';
+              if (plan.url && typeof plan.url === 'string' && plan.url.trim() !== '' && plan.url.startsWith('http')) {
+                  mainLinkHTML = `<a href="${plan.url}" target="_blank" style="font-size: 0.85em; color: var(--secondary);">Kaynak Bildirim</a>`;
               }
 
               planCard.innerHTML = `
@@ -297,7 +299,7 @@ async function loadInvestmentPlans(symbol) {
                   <div class="plan-meta">
                       <span class="plan-category">${plan.category || 'Genel'}</span>
                       <span class="plan-date">Açıklanma: ${plan.date_announced || 'N/A'}</span>
-                      ${mainKapLinkHTML}
+                      ${mainLinkHTML}
                   </div>
                   ${plan.description ? `<div class="plan-description">${plan.description}</div>` : ''}
                   ${plan.details ? `<div class="plan-details">${plan.details}</div>` : ''}
@@ -331,7 +333,7 @@ async function loadInvestmentPlans(symbol) {
 // --- Displays message when no news is found ---
 // Modified to accept container elements
 function displayNoNewsMessage(symbol, timelineContainer, detailContainer) {
-    const message = `<div style="text-align: center; padding: 40px 20px; color: var(--text-light);"><div style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Bildirim Bulunamadı</div><p style="color: var(--text-lighter);">${symbol} için KAP bildirimi bulunamadı veya ilgili JSON dosyası eksik/hatalı.</p></div>`; // Updated message
+    const message = `<div style="text-align: center; padding: 40px 20px; color: var(--text-light);"><div style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Bildirim Bulunamadı</div><p style="color: var(--text-lighter);">${symbol} için şirket bildirimi bulunamadı veya ilgili JSON dosyası eksik/hatalı.</p></div>`; // Updated message
 
     if (timelineContainer) {
         timelineContainer.innerHTML = message;
@@ -403,7 +405,7 @@ function loadLatestNews() {
     });
 
     // Use correct Turkish title
-    newsContainer.innerHTML = `<h2 class="section-title">Günün KAP Haberleri<span class="update-schedule">Günlük Güncellenir</span></h2>`;
+    newsContainer.innerHTML = `<h2 class="section-title">Günün Şirket Haberleri<span class="update-schedule">Günlük Güncellenir</span></h2>`;
     if (allNews.length > 0) {
         allNews.forEach(news => {
             const newsCard = document.createElement('div');
@@ -414,7 +416,7 @@ function loadLatestNews() {
                 <div class="news-content">
                     <div class="news-meta">
                         <span class="news-time">${news.date || ''} - ${news.time || ''}</span>
-                        <span class="news-source">KAP</span>
+                        <span class="news-source">BORSA</span>
                     </div>
                     <h3 class="news-title">${news.title || 'Başlık Yok'}</h3>
                     <p class="news-desc">${news.desc || ''}</p>
@@ -427,7 +429,7 @@ function loadLatestNews() {
             newsContainer.appendChild(newsCard);
         });
     } else {
-        newsContainer.innerHTML += `<p style="text-align: center; padding: 20px; color: var(--text-lighter);">Bugün için KAP bildirimi bulunamadı (Veri kaynağını kontrol edin: /data/stocks.js).</p>`; // Updated message
+        newsContainer.innerHTML += `<p style="text-align: center; padding: 20px; color: var(--text-lighter);">Bugün için şirket bildirimi bulunamadı (Veri kaynağını kontrol edin: /data/stocks.js).</p>`; // Updated message
     }
 }
 
@@ -620,5 +622,4 @@ function filterNewsByCategory(category) {
     } else if (noResultsMsg) {
         noResultsMsg.style.display = 'none'; // Hide message if there are results
     }
-
 }
