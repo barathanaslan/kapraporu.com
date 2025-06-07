@@ -1141,3 +1141,192 @@ footer {
     color: var(--primary);
     margin-bottom: 20px;
 }
+/* --- ANALİST TAVSİYELERİ BÖLÜMÜ --- */
+.analyst-ratings {
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.analyst-ratings.visible {
+    width: 40%;
+    min-width: 300px;
+    opacity: 1;
+    overflow: visible;
+}
+
+.analyst-ratings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.rating-card {
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rating-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+.rating-brokerage-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: contain;
+  background-color: #fff;
+  border: 1px solid var(--border);
+  padding: 2px;
+}
+
+.rating-brokerage-title {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 16px;
+}
+
+.rating-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating-target-price {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.rating-target-price .label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.rating-type {
+  font-weight: 700;
+  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  text-transform: capitalize;
+}
+
+.rating-type-al {
+  background-color: rgba(53, 127, 101, 0.1);
+  color: var(--green);
+}
+
+.rating-type-tut {
+  background-color: rgba(249, 194, 46, 0.15);
+  color: #B5850A;
+}
+
+.rating-type-sat {
+  background-color: rgba(191, 67, 66, 0.1);
+  color: var(--red);
+}
+
+.rating-date {
+  font-size: 12px;
+  color: var(--text-lighter);
+  text-align: right;
+  margin-top: 8px;
+}
+/* --- Uzun Analist Tavsiyeleri İçin Stil Güncellemesi --- */
+
+/* "endeks..." ile başlayan tüm tavsiyeler için ortak stil */
+.rating-type.rating-type-end {
+    font-size: 12px;        /* Yazı boyutunu küçültelim */
+    padding: 5px 10px;      /* İç boşlukları azaltalım */
+    line-height: 1.4;       /* Satır yüksekliğini düzenleyelim */
+    text-align: center;     /* Metin çok satırlı olursa ortalayalım */
+    text-transform: none;   /* Büyük harf dönüşümünü iptal edelim */
+    
+    /* Renk olarak "Tut" tavsiyesiyle aynı stili kullanalım */
+    background-color: rgba(249, 194, 46, 0.15);
+    color: #B5850A;
+}
+
+/* Genel tavsiye kutusunun uzun metinlerde esnemesini sağlayalım */
+.rating-details {
+    align-items: flex-start; /* Dikeyde esnek hizalama */
+}
+/* --- Analist Tavsiyeleri Özet Kartı Stilleri --- */
+.ratings-summary-card {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+}
+
+.ratings-summary-card h4 {
+    font-size: 15px;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.summary-stats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--text-light);
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+/* "Al" ve "Sat" sayıları için özel renkler */
+.stat-value.al-color {
+    color: var(--green);
+}
+
+.stat-value.sat-color {
+    color: var(--red);
+}
+/* --- Analist Özeti Potansiyel Getiri Stili --- */
+.stat-item.potential {
+    /* Ortadaki istatistiği biraz daha geniş yapalım */
+    flex-grow: 1.2;
+}
+
+.stat-value.potential-up {
+    color: var(--green);
+}
+
+.stat-value.potential-down {
+    color: var(--red);
+}
