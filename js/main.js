@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Load stock data for index page
   if (document.querySelector('.news-feed') && typeof stocksData !== 'undefined') {
       loadLatestNews(); // Uses stocksData for now
-      loadMarketSummary();
+      //loadMarketSummary();
       loadPopularStocks();
   }
 
@@ -436,7 +436,7 @@ function loadLatestNews() {
 
 // --- Homepage function: Load market summary ---
 // TODO: Update with current data or implement dynamic fetching
-function loadMarketSummary() {
+/*function loadMarketSummary() {
     const marketList = document.querySelector('.market-list');
     if (!marketList) return;
 
@@ -453,7 +453,7 @@ function loadMarketSummary() {
     // Update the schedule text dynamically maybe?
     const scheduleSpan = document.querySelector('.sidebar .widget-card:nth-child(1) .section-title .update-schedule');
     if(scheduleSpan) scheduleSpan.textContent = "13.04.2025"; // Update date
-}
+}*/
 
 // --- Homepage function: Load popular stocks links ---
 function loadPopularStocks() {

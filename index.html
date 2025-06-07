@@ -42,15 +42,27 @@
                     <ul class="market-list">
                         <li class="market-item">
                             <span class="market-name">BIST 100</span>
-                            <span class="market-value">Yükleniyor...</span>
+                            <span class="market-value" id="bist100-value"></span>
                         </li>
-                         <li class="market-item">
+                        <li class="market-item">
+                            <span class="market-name">BIST 30</span>
+                            <span class="market-value" id="bist30-value"></span>
+                        </li>
+                        <li class="market-item">
                             <span class="market-name">Dolar/TL</span>
-                            <span class="market-value">Yükleniyor...</span>
+                            <span class="market-value" id="usd-tl-value"></span>
                         </li>
-                         <li class="market-item">
+                        <li class="market-item">
                             <span class="market-name">Euro/TL</span>
-                            <span class="market-value">Yükleniyor...</span>
+                            <span class="market-value" id="eur-tl-value"></span>
+                        </li>
+                        <li class="market-item">
+                            <span class="market-name">Altın (ONS)</span>
+                            <span class="market-value" id="gold-ons-value"></span>
+                        </li>
+                        <li class="market-item">
+                            <span class="market-name">Brent Petrol</span>
+                            <span class="market-value" id="brent-oil-value"></span>
                         </li>
                     </ul>
                 </div>
@@ -76,5 +88,6 @@
     <script src="components/footer.js"></script>
     <script src="data/stocks.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/price-updater.js"></script>
 </body>
 </html>
