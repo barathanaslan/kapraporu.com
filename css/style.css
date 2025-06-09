@@ -1330,3 +1330,100 @@ footer {
 .stat-value.potential-down {
     color: var(--red);
 }
+/* --- Sermaye Artırımı ve Temettü Bölümü Stilleri --- */
+.capital-events-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+.events-section {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    box-shadow: var(--card-shadow);
+}
+
+.events-section h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+}
+
+.events-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.events-table th, .events-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--bg-alt);
+}
+
+.events-table th {
+    font-weight: 600;
+    color: var(--text-light);
+    background-color: var(--bg);
+}
+
+.events-table tr:last-child td {
+    border-bottom: none;
+}
+
+.events-table tr:hover {
+    background-color: var(--bg);
+}
+
+.events-table .event-type-bedelli {
+    color: var(--red);
+    font-weight: 600;
+}
+
+.events-table .event-type-bedelsiz {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.events-table .event-type-temettu {
+    color: var(--primary);
+    font-weight: 500;
+}
+/* --- Temettü / Sermaye Arttırımı Geçiş Butonları --- */
+.event-toggle-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 15px;
+}
+
+.event-toggle-btn {
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    background-color: var(--bg);
+    color: var(--text-light);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.event-toggle-btn:hover {
+    background-color: var(--bg-alt);
+    color: var(--primary);
+}
+
+.event-toggle-btn.active {
+    background-color: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
