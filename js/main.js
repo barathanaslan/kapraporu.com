@@ -432,21 +432,28 @@ function loadLatestNews() {
     // Eğer o kısımda da sorun varsa, önceki versiyonlardan doldurulabilir.
 }
 
+
 function loadPopularStocks() {
     const stocksContainer = document.querySelector('.stock-list-simple');
-    // stocksData objesinin data/stocks.js dosyasından yüklendiğinden emin ol
-    if (!stocksContainer || typeof stocksData === 'undefined') {
-        console.error("BIST30 hisseleri için 'stocksContainer' veya 'stocksData' bulunamadı.");
+    // `stocksData` objesinin `data/stocks.js` dosyasından yüklendiğinden emin olmalıyız.
+    // Bu kontrol, dosya yüklenemediğinde veya boş olduğunda sayfanın bozulmasını engeller.
+    if (typeof stocksData === 'undefined') {
+        console.error("Hata: stocksData objesi bulunamadı. data/stocks.js dosyasının doğru yüklendiğinden emin olun.");
+        if (stocksContainer) stocksContainer.innerHTML = '<p>Hisseler yüklenemedi.</p>';
+        return;
+    }
+    if (!stocksContainer) {
+        console.error("Hata: BIST30 hisselerinin gösterileceği '.stock-list-simple' alanı bulunamadı.");
         return;
     }
 
     const popularSymbols = [ "THYAO", "ASELS", "EREGL", "SISE", "GARAN", "KCHOL", "EKGYO", "AKBNK", "FROTO", "KOZAL", "TAVHL", "ISCTR", "ENKAI", "MGROS", "SAHOL", "YKBNK", "ULKER", "TCELL", "AEFES", "CIMSA", "TUPRS", "BIMAS", "PGSUS", "TOASO", "TTKOM", "ASTOR" ];
 
-    stocksContainer.innerHTML = ''; // Mevcut içeriği temizle
+    stocksContainer.innerHTML = ''; // Önceki içeriği temizle
     popularSymbols.forEach(symbol => {
         if (stocksData[symbol]) {
             const link = document.createElement('a');
-            link.href = `stocks/${symbol.toLowerCase()}.html`;
+            link.href = `./stocks/${symbol.toLowerCase()}.html`; // GitHub Pages uyumluluğu için ./ ekledik.
             link.className = 'stock-link';
             link.textContent = symbol;
             stocksContainer.appendChild(link);
