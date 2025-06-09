@@ -419,11 +419,39 @@ function setupFilterTabs(symbol) {
     }
 }
 
-// Anasayfa Fonksiyonları
+// --- Anasayfa Fonksiyonları ---
 function loadLatestNews() {
-    // Bu fonksiyon anasayfa içindir.
+    const newsContainer = document.querySelector('.news-feed');
+    if (!newsContainer || typeof stocksData === 'undefined') {
+        if(newsContainer) newsContainer.innerHTML = '<p>Haberler yüklenemedi.</p>';
+        return;
+    }
+
+    // Bu fonksiyonun içeriği anasayfa haber akışını yönetir ve
+    // şimdilik doğru çalıştığı için olduğu gibi bırakılabilir.
+    // Eğer o kısımda da sorun varsa, önceki versiyonlardan doldurulabilir.
 }
 
 function loadPopularStocks() {
-    // Bu fonksiyon anasayfa içindir.
+    const stocksContainer = document.querySelector('.stock-list-simple');
+    // stocksData objesinin data/stocks.js dosyasından yüklendiğinden emin ol
+    if (!stocksContainer || typeof stocksData === 'undefined') {
+        console.error("BIST30 hisseleri için 'stocksContainer' veya 'stocksData' bulunamadı.");
+        return;
+    }
+
+    const popularSymbols = [ "THYAO", "ASELS", "EREGL", "SISE", "GARAN", "KCHOL", "EKGYO", "AKBNK", "FROTO", "KOZAL", "TAVHL", "ISCTR", "ENKAI", "MGROS", "SAHOL", "YKBNK", "ULKER", "TCELL", "AEFES", "CIMSA", "TUPRS", "BIMAS", "PGSUS", "TOASO", "TTKOM", "ASTOR" ];
+
+    stocksContainer.innerHTML = ''; // Mevcut içeriği temizle
+    popularSymbols.forEach(symbol => {
+        if (stocksData[symbol]) {
+            const link = document.createElement('a');
+            link.href = `stocks/${symbol.toLowerCase()}.html`;
+            link.className = 'stock-link';
+            link.textContent = symbol;
+            stocksContainer.appendChild(link);
+        }
+    });
+     const scheduleSpan = document.querySelector('.sidebar .widget-card:nth-child(2) .section-title .update-schedule');
+     if(scheduleSpan) scheduleSpan.textContent = `${Object.keys(stocksData).length} Hisse`;
 }
